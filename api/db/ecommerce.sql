@@ -19,7 +19,7 @@ CREATE TABLE PRODUCTS (
     status BOOLEAN NOT NULL,
     categoryId INT REFERENCES CATEGORIES(id),
     createdBy BIGINT NOT NULL,
-    updatedBy BIGINT
+    updatedBy BIGINT DEFAULT 'No updated'
 );
 
 CREATE TABLE PRODUCT_BY_ORDER(

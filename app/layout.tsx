@@ -1,16 +1,26 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Volkhov } from 'next/font/google'
+import { Volkhov } from "next/font/google";
+import { Navbar } from "./components/Navbar";
+import { Banner } from "./components/Banner";
+import { Footer } from "./components/Footer";
 
-const poppins = Volkhov({
- weight: ['400','700'],
- subsets: ['latin'],
+const volkov = Volkhov({
+  weight: ["400", "700"],
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
   title: "Sensual Candles",
-  description: "Descubre nuestra colección de velas aromáticas y sensuales diseñadas para crear ambientes románticos e íntimos. En Sensual Candles, ofrecemos velas de alta calidad con fragancias irresistibles y diseños elegantes. Perfectas para cenas especiales, noches relajantes o decoración de interiores.",
+  description:
+    "Descubre nuestra colección de velas aromáticas y sensuales diseñadas para crear ambientes románticos e íntimos. En Sensual Candles, ofrecemos velas de alta calidad con fragancias irresistibles y diseños elegantes. Perfectas para cenas especiales, noches relajantes o decoración de interiores.",
 };
+
+export const colors = {
+  primary: "#A18A68",
+  text: "#3B3B3A",
+  black: "#000",
+}
 
 export default function RootLayout({
   children,
@@ -19,10 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={poppins.className}
-      >
-        {children}
+      <body className={volkov.className}>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
