@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Volkhov } from "next/font/google";
+import { Poppins, Volkhov } from "next/font/google";
 import { Navbar } from "./components/Navbar";
-import { Banner } from "./components/Banner";
 import { Footer } from "./components/Footer";
 
 const volkov = Volkhov({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+});
+
+export const poppins = Poppins({
   weight: ["400", "700"],
   subsets: ["latin"],
 });
@@ -29,9 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={volkov.className}>
+      <body className={`${volkov.className}`}>
         <div className="flex flex-col min-h-screen">
-          <Navbar />
+          <Navbar  />
           <main className="flex-grow">{children}</main>
           <Footer />
         </div>

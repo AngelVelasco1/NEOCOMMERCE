@@ -21,7 +21,7 @@ export const Navbar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 w-full z-40 container mx-auto px-6 py-8 flex items-center justify-between ">
+    <nav className="container sticky top-0 w-full z-40 mx-auto px-6 py-7 flex items-center justify-between bg-white ">
       <div className="flex items-center space-x-4">
         <div
           style={{ color: colors.primary }}

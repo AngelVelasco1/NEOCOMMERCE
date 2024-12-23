@@ -13,7 +13,6 @@ INSERT INTO CATEGORIES (name) VALUES
 ('Aromaticos'),
 ('Accesorios');
 
-
 INSERT INTO CUSTOMERS (name, phoneNumber, email, address, countryId) VALUES
 ('John Doe', '+1 4075550123', 'johndoe@example.com', '123 Elm Street, Miami, Florida', 1),
 ('Marie Dupont', '+33 612345678', 'marie.dupont@example.fr', '45 Rue de Paris, Paris, Île-de-France', 2),
