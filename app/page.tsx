@@ -1,11 +1,11 @@
 import { Banner } from "./components/Banner"
-import { products } from "./components/Products"
+import { products } from "../utils/Products"
 import { ProductCard } from "./components/ProductCard"
 import { poppins } from "./layout"
 
 export default function Home() {
   return (
-    <div className="container mx-auto ">
+    <div className="container mx-auto">
     <div>
     <Banner />
     </div>   
@@ -14,7 +14,7 @@ export default function Home() {
           2xl:grid-cols-5 gap-10 p-4`}>
       {products.map((product) => {
         return (
-            <ProductCard key={product.id} id={product.id} name={product.name} price={product.price} image={product.images[0].image} stock={product.inStock} />
+            <ProductCard key={product.id} data={product} />
         )
       } 
       )}

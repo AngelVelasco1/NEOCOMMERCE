@@ -8,7 +8,7 @@ export const Navbar = () => {
   const pages = [
     {
       name: "Inicio",
-      url: "#",
+      url: "/",
     },
     {
       name: "Productos",
@@ -21,7 +21,7 @@ export const Navbar = () => {
   ];
 
   return (
-    <nav className="container sticky top-0 w-full z-40 mx-auto px-6 py-7 flex items-center justify-between bg-white ">
+    <nav className="container sticky top-0 w-100 z-40 mx-auto px-6 py-7 flex items-center justify-between bg-white ">
       <div className="flex items-center space-x-4">
         <div
           style={{ color: colors.primary }}
@@ -59,9 +59,9 @@ export const Navbar = () => {
         </div>
       </div>
       <div className="flex items-center space-x-5">
-        <button className="text-gray-700 hover:text-gray-900">
+        <Link href={"/cart"} className="text-gray-700 hover:text-gray-900">
           <TbShoppingBag size="1.7em" />
-        </button>
+        </Link>
         <button className="text-gray-700 hover:text-gray-900">
           <LuUserRound size="1.7em" />
         </button>

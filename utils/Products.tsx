@@ -71,7 +71,7 @@ export const products = [
       price: 40,
       brand: "Apple",
       category: "Phone",
-      inStock: true,
+      inStock: false,
       images: [
         {
           color: "Black",

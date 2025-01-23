@@ -5,7 +5,6 @@ export const Banner = () => {
   return (
     <div className="container relative w-full h-screen max-w-7xl mx-auto py-2">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        {/* Left Image */}
         <div className="relative overflow-hidden rounded-lg">
           <Image
               src={"/imgs/bannerImg1.svg"}
@@ -15,7 +14,6 @@ export const Banner = () => {
           />
         </div>
 
-        {/* Center Content */}
         <div className="flex flex-col items-center justify-center space-y-5 px-4">
           <div className="relative h-[350px] overflow-hidden rounded-lg">
             <Image
@@ -41,9 +39,7 @@ export const Banner = () => {
             </Button>
           </div>
         </div>
-
-        {/* Right Image */}
-        <div className="relative  overflow-hidden rounded-lg">
+        <div className="relative overflow-hidden rounded-lg">
           <Image
               src={"/imgs/bannerImg1.svg"}
               alt="Purple candle with lavender"
