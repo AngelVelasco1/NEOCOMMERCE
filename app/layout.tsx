@@ -3,7 +3,7 @@ import "./globals.css";
 import { Poppins, Volkhov } from "next/font/google";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
-
+import { CartProvider } from "./hooks/useCart";
 const volkov = Volkhov({
   weight: ["400", "700"],
   subsets: ["latin"],
@@ -24,7 +24,7 @@ export const colors = {
   primary: "#A18A68",
   text: "#3B3B3A",
   black: "#000",
-}
+};
 
 export default function RootLayout({
   children,
@@ -34,11 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${volkov.className}`}>
-        <div className="flex flex-col min-h-screen">
-          <Navbar  />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </div>
+        <CartProvider>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
+        </CartProvider>
       </body>
     </html>
   );

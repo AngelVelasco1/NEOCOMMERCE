@@ -2,54 +2,106 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
-import { GrVisa as Visa } from "react-icons/gr";
-import { SiMastercard as Mastercard } from "react-icons/si";
-import { SiAmericanexpress as Amex } from "react-icons/si";
-import { FaCreditCard as Card } from "react-icons/fa";
+import {  useMemo, useState } from "react";
+import { useCart } from "../hooks/useCart";
+import { PaymentIcon, paymentMethods } from "./PaymentIcon";
+import { SetQuantity } from "./SetQuantity";
+import Product from "../product/[productId]/page";
 
 interface ProductDetailsProps {
   data: any;
 }
-interface ProductImages {
+export interface ProductImages {
   color: string;
-  colorCode: string;
   image: string;
+  colorCode: string;
 }
-const PaymentIcon = ({ icon: Icon }: { icon: React.ElementType }) => (
-  <div className="flex flex-col items-center">
-    <Icon className="h-6 w-10" />
-  </div>
-);
 
 export const ProductDetails = ({ data }: ProductDetailsProps) => {
-  const [selectedSize, setSelectedSize] = useState("medium");
-  const [selectedColor, setSelectedColor] = useState("blue");
-  const [quantity, setQuantity] = useState(1);
+  const { addProductToCart, cartProducts, updateQuantity } = useCart();
+  const [quantity, setQuantity] = useState(1)
   const [selectedImage, setSelectedImage] = useState(0);
-  const paymentMethods = [
-    { icon: Visa },
-    { icon: Mastercard },
-    { icon: Amex },
-    { icon: Card },
-  ];
+  const [selectedColor, setSelectedColor] = useState(data.images[0].color);
+  const [selectedSize, setSelectedSize] = useState("small");
+
+  const handleAddToCart = () => {
+    const product = {
+      id: data.id,
+      selectedImg: {
+        color: selectedColor,
+        colorCode: data.images[selectedImage].colorCode,
+        image: data.images[selectedImage].image,
+      },
+      name: data.name,
+      price: data.price,
+      quantity: quantity,
+      size: selectedSize,
+      total: data.price * quantity,
+    };
+    addProductToCart(product);
+  };
+
+  const cartProduct = cartProducts.find((product) => product.id === data.id);
+
+  const handleIncrease = () => {
+    if (cartProduct) {
+      updateQuantity(cartProduct.id, cartProduct.selectedImg.colorCode, cartProduct.quantity + 1);
+    } else {
+      setQuantity((prev) => prev + 1); 
+    }
+  };
+  
+  const handleDecrease = () => {
+    if (cartProduct) {
+      updateQuantity(cartProduct.id, cartProduct.selectedImg.colorCode, Math.max(1, cartProduct.quantity - 1));
+    } else {
+      setQuantity((prev) => Math.max(1, prev - 1)); 
+    }
+  };
+
+  const matchColorImage = useMemo(
+    () =>
+      data.images.filter((img: ProductImages) => img.color === selectedColor),
+    [data.images, selectedColor]
+  );
+
+  const validSelectedImageIndex = useMemo(() => {
+    if (selectedImage >= matchColorImage.length) {
+      return 0;
+    }
+    return selectedImage;
+  }, [selectedImage, matchColorImage]);
+
+  const handleImageChange = (index: number, color: string) => {
+    if (color === selectedColor) {
+      setSelectedImage(index);
+    } else {
+      setSelectedColor(color);
+      const firstImageIndex = data.images.findIndex(
+        (img: ProductImages) => img.color === color
+      );
+      setSelectedImage(firstImageIndex !== -1 ? firstImageIndex : 0);
+    }
+  };
+
   return (
     <div className="grid gap-10 md:grid-cols-2 space-y-4 p-4">
-      <div className="flex flex-row-reverse w-100">
-        <div className="flex-1 relative aspect-square h-5/6 overflow-hidden rounded-lg bg-gray-100">
+      <div className="flex flex-row-reverse">
+        <div className="flex-1 relative aspect-square  rounded-lg bg-gray-100">
           <Image
-            src={data.images[selectedImage].image}
+            src={matchColorImage[validSelectedImageIndex]?.image}
             alt={data.name}
-            fill
-            className="object-contain p-8"
+            width={460}
+            height={460}
+            className="object-contain p-8 z-40"
             priority
           />
         </div>
-        <div className="grid grid-cols-1 w-1/5 h-fit gap-5">
+        <div className="grid grid-cols-1 w-1/5 h-fit gap-5 m-auto">
           {data.images.map((image: ProductImages, index: number) => (
             <button
               key={index}
-              onClick={() => setSelectedImage(index)}
+              onClick={() => handleImageChange(index, image.color)}
               className={`relative aspect-square overflow-hidden rounded-lg bg-gray-100 ${
                 selectedImage === index
                   ? "ring-2 ring-primary ring-offset-2"
@@ -60,16 +112,20 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
                 src={image.image}
                 alt={`${data.name} thumbnail ${index + 1}`}
                 fill
-                className="object-contain "
+                className="object-contain"
               />
             </button>
           ))}
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         <div>
-          <h1 className="text-3xl font-semibold  tracking-wide">{data.name}</h1>
+          <h1 className="text-3xl line-clamp-3 font-semibold  tracking-wide">
+            {data.name}
+          </h1>
+          <h4 className="text-lg line-clamp-3">{data.description}</h4>
+
           <div className="mt-4 flex items-center gap-4">
             <div className="flex items-baseline gap-2">
               <span className="text-3xl font-bold">${data.price}</span>
@@ -80,9 +136,15 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
           </div>
         </div>
 
-        <div className="space-y-1">
-          <p className="text-sm text-muted-foreground">
-            {data.inStock ? "item in stock!" : "item out stock"}
+        <div className="space-y-2">
+          <p
+            className={
+              data.inStock
+                ? "text-sm text-muted-foreground font-bold text-teal-500"
+                : "text-sm text-muted-foreground font-bold text-rose-500"
+            }
+          >
+            {data.inStock ? "item in stock" : "item out stock"}
           </p>
           <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
             <div
@@ -124,57 +186,46 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
             onValueChange={setSelectedColor}
             className="flex gap-3"
           >
-            {["blue", "black", "pink"].map((color) => (
-              <label
-                key={color}
-                className={`relative flex h-8 w-8 cursor-pointer items-center justify-center rounded-full 
-                      ${
-                        selectedColor === color &&
-                        "ring-2 ring-primary ring-offset-2"
-                      }`}
-              >
-                <RadioGroupItem value={color} className="sr-only" />
-                <span
-                  className="h-6 w-6 rounded-full"
+            {data.images
+              .map((img: ProductImages) => img.color)
+              .filter(
+                (value: string, index: number, self: Array<string>) =>
+                  self.indexOf(value) === index
+              )
+              .map((color: string) => (
+                <button
+                  key={color}
+                  onClick={() => handleImageChange(0, color)} // Default to the first image of the selected color
+                  className={`w-8 h-8 rounded-full ${
+                    selectedColor === color ? "ring-2 ring-blue-500" : ""
+                  }`}
                   style={{ backgroundColor: color }}
                 />
-              </label>
-            ))}
+              ))}
           </RadioGroup>
         </div>
 
         <div className="flex items-end gap-5">
-          <div className="space-y-2">
-            <label className="text-base">Cantidad</label>
-            <div className="flex w-fit items-center rounded-lg border">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-none text-md"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              >
-                -
-              </Button>
-              <div className="w-12 text-center">{quantity}</div>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-none text-md   "
-                /* When we have the stock by number replace the function to min and the first arg to data.stock */
-                onClick={() => setQuantity(Math.max(1, quantity + 1))}
-              >
-                +
-              </Button>
-            </div>
-          </div>
-          <div className="w-10/12 ">
-            <Button className="w-10/12 p-6 border-2 border-black" size="lg" variant="outline">
+          <SetQuantity
+            cartProduct={cartProduct || {quantity}}
+            handleDecrease={() => handleDecrease()}
+             /* When we have the stock by number replace the function to min and the first arg to data.stock */
+             /* handleIncrease={() => setQuantity((prev) => Math.min(prev + 1, data.stock))} */
+            handleIncrease={() => handleIncrease()}
+          />
+          <div className="w-10/12">
+            <Button
+              onClick={() => handleAddToCart()}
+              className="w-10/12 p-6 border-2 border-black"
+              size="lg"
+              variant="outline"
+            >
               Añadir al carrito
             </Button>
           </div>
         </div>
 
-        <div className="rounded-lg bg-muted pt-4">
+        <div className="bg-muted pt-4">
           <div className="flex items-center gap-2">
             <span className="font-medium">
               Envíos gratis: Por compras superiores a 100.000
@@ -182,12 +233,10 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
           </div>
         </div>
 
-        <div className="rounded-lg border ">
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-4">
-            {paymentMethods.map((method, index) => (
-              <PaymentIcon key={index} icon={method.icon} />
-            ))}
-          </div>
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-4">
+          {paymentMethods.map((method, index) => (
+            <PaymentIcon key={index} icon={method.icon} />
+          ))}
           <p className="text-center text-lg font-medium text-gray-900">
             Seguridad Garantizada
           </p>

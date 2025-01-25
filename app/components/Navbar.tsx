@@ -59,7 +59,7 @@ export const Navbar = () => {
         </div>
       </div>
       <div className="flex items-center space-x-5">
-        <Link href={"/cart"} className="text-gray-700 hover:text-gray-900">
+        <Link href={"/productsCart"} className="text-gray-700 hover:text-gray-900">
           <TbShoppingBag size="1.7em" />
         </Link>
         <button className="text-gray-700 hover:text-gray-900">

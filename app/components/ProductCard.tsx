@@ -24,7 +24,7 @@ export const ProductCard = ({ data }: ProductCardProps) => {
         </div>
         <div className="flex justify-between items-center">
           <p className="text-lg font-semibold text-gray-900">${data.price}</p>
-          <p>{data.stock ? "Disponible" : "No disponible"}</p>
+          <p>{data.inStock ? "Disponible" : "No disponible"}</p>
         </div>
       </div>
     </Link>    
