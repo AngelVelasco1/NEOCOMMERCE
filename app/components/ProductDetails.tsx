@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {  useMemo, useState } from "react";
+import {   useState } from "react";
 import { useCart } from "../hooks/useCart";
 import { PaymentIcon, paymentMethods } from "./PaymentIcon";
 import { SetQuantity } from "./SetQuantity";
@@ -11,31 +11,27 @@ import React from 'react';
 interface ProductDetailsProps {
   data: any;
 }
-export interface ProductImages {
-  color: string;
-  image: string;
-  colorCode: string;
-}
+
 export const ProductDetails = ({ data }: ProductDetailsProps) => {
   const { addProductToCart, cartProducts, updateQuantity } = useCart();
   const [quantity, setQuantity] = useState(1)
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedColor, setSelectedColor] = useState(data.images[0].color);
+  const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("small");
+  
+console.log(data);
 
   const handleAddToCart = () => {
     const product = {
-      id: data.id,
-      selectedImg: {
-        color: selectedColor,
-        colorCode: data.images[selectedImage].colorCode,
-        image: data.images[selectedImage].image,
-      },
-      name: data.name,
-      price: data.price,
+      id: data[0].id,
+      color: selectedColor,
+      colorCode: data[selectedImage].colorCode,
+      imageURL: data[selectedImage].imageURL,
+      name: data[0].name,
+      price: data[0].price,
       quantity: quantity,
       size: selectedSize,
-      total: data.price * quantity,
+      total: data[0].price * quantity,
     };
     addProductToCart(product);
   };
@@ -44,7 +40,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
 
   const handleIncrease = () => {
     if (cartProduct) {
-      updateQuantity(cartProduct.id, cartProduct.selectedImg.colorCode, cartProduct.quantity + 1);
+      updateQuantity(cartProduct.id, cartProduct.colorCode, cartProduct.quantity + 1);
     } else {
       setQuantity((prev) => prev + 1); 
     }
@@ -52,32 +48,20 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
   
   const handleDecrease = () => {
     if (cartProduct) {
-      updateQuantity(cartProduct.id, cartProduct.selectedImg.colorCode, Math.max(1, cartProduct.quantity - 1));
+      updateQuantity(cartProduct.id, cartProduct.colorCode, Math.max(1, cartProduct.quantity - 1));
     } else {
       setQuantity((prev) => Math.max(1, prev - 1)); 
     }
   };
 
-  const matchColorImage = useMemo(
-    () =>
-      data.images.filter((img: ProductImages) => img.color === selectedColor),
-    [data.images, selectedColor]
-  );
-
-  const validSelectedImageIndex = useMemo(() => {
-    if (selectedImage >= matchColorImage.length) {
-      return 0;
-    }
-    return selectedImage;
-  }, [selectedImage, matchColorImage]);
 
   const handleImageChange = (index: number, color: string) => {
     if (color === selectedColor) {
       setSelectedImage(index);
     } else {
       setSelectedColor(color);
-      const firstImageIndex = data.images.findIndex(
-        (img: ProductImages) => img.color === color
+      const firstImageIndex = data.findIndex(
+        (img) => img.color === color
       );
       setSelectedImage(firstImageIndex !== -1 ? firstImageIndex : 0);
     }
@@ -88,7 +72,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
       <div className="flex flex-row-reverse">
         <div className="flex-1 relative aspect-square  rounded-lg bg-gray-100">
           <Image
-            src={matchColorImage[validSelectedImageIndex]?.image}
+            src={data[selectedImage].imageURL}
             alt={data.name}
             width={460}
             height={460}
@@ -97,7 +81,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
           />
         </div>
         <div className="grid grid-cols-1 w-1/5 h-fit gap-5 m-auto">
-          {data.images.map((image: ProductImages, index: number) => (
+          {data.map((image, index: number) => (
             <button
               key={index}
               onClick={() => handleImageChange(index, image.color)}
@@ -108,7 +92,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
               }`}
             >
               <Image
-                src={image.image}
+                src={image.imageURL}
                 alt={`${data.name} thumbnail ${index + 1}`}
                 fill
                 className="object-contain"
@@ -123,11 +107,11 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
           <h1 className="text-3xl line-clamp-3 font-semibold  tracking-wide">
             {data.name}
           </h1>
-          <h4 className="text-lg line-clamp-3">{data.description}</h4>
+          <h4 className="text-lg line-clamp-3">{data[0].description}</h4>
 
           <div className="mt-4 flex items-center gap-4">
             <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-bold">${data.price}</span>
+              <span className="text-3xl font-bold">${data[0].price}</span>
             </div>
             <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-sm font-semibold text-red-700">
               SAVE {10}%
@@ -138,12 +122,12 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
         <div className="space-y-2">
           <p
             className={
-              data.inStock
+              data.stock > 0
                 ? "text-sm text-muted-foreground font-bold text-teal-500"
                 : "text-sm text-muted-foreground font-bold text-rose-500"
             }
           >
-            {data.inStock ? "item in stock" : "item out stock"}
+            {data.stock > 0 ? "item in stock" : "item out stock"}
           </p>
           <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
             <div
@@ -185,8 +169,8 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
             onValueChange={setSelectedColor}
             className="flex gap-3"
           >
-            {data.images
-              .map((img: ProductImages) => img.color)
+            {data
+              .map((img) => img.color)
               .filter(
                 (value: string, index: number, self: Array<string>) =>
                   self.indexOf(value) === index

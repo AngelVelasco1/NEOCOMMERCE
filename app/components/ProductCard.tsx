@@ -2,8 +2,11 @@ import Image from "next/image"
 import Link from "next/link"
 import React from 'react';
 
+import { Product } from "../page";
+
+
 interface ProductCardProps {
-    data: any
+    data: Product
 }
 
 export const ProductCard = ({ data }: ProductCardProps) => {
@@ -25,7 +28,7 @@ export const ProductCard = ({ data }: ProductCardProps) => {
         </div>
         <div className="flex justify-between items-center">
           <p className="text-lg font-semibold text-gray-900">${data.price}</p>
-          <p>{data.inStock ? "Disponible" : "No disponible"}</p>
+          <p>{data.stock > 0 ? "Disponible" : "No disponible"}</p>
         </div>
       </div>
     </Link>    

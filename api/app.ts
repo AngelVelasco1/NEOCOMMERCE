@@ -1,14 +1,20 @@
 import express from 'express';
 import { initRoutes } from './routes/router.js';
+import { CONFIG } from './config/credentials.js';
+import cors from 'cors';
 
 const app = express();
-const port = 3307;
+
+app.use(cors({
+  origin: `http://${CONFIG.host}:${CONFIG.front_port}`,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
 
 app.use(express.json());
 
 app.use('/api', initRoutes());
 
-
-app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+app.listen(CONFIG.port, () => {
+  console.log(`Servidor corriendo en http://${CONFIG.host}:${CONFIG.port}`);
 });

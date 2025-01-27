@@ -3,6 +3,7 @@ import { colors } from "../layout";
 import { TbShoppingBag } from "react-icons/tb";
 import { LuUserRound } from "react-icons/lu";
 import { Input } from "@/components/ui/input";
+import React from 'react';
 
 export const Navbar = () => {
   const pages = [

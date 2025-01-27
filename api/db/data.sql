@@ -1,3 +1,4 @@
+-- Active: 1731946694269@@127.0.0.1@3306@lights_ecommerce
 INSERT INTO COUNTRIES (name, city, deparment) VALUES
 ('United States', 'Miami', 'Florida'),
 ('France', 'Paris', 'Île-de-France'),
@@ -29,12 +30,18 @@ INSERT INTO PRODUCTS (name, description, price, stock, status, categoryId, creat
 ('Romance Set', 'Gift set with candles and massage oil', 49.99, 20, 1, 3, 1, 1),
 ('Candle Holder', 'Elegant accessory for sensual candles', 14.99, 100, 1, 4, 1, 1);
 
-INSERT INTO IMAGES (imageURL, productId) VALUES
-('images/passion-candle.jpg', 1),
-('images/seduction-candle.jpg', 2),
-('images/desire-massage-oil.jpg', 3),
-('images/romance-set.jpg', 4),
-('images/candle-holder.jpg', 5);
+INSERT INTO IMAGES (imageURL, colorCode, color, productId) VALUES
+('https://example.com/passion-candle.jpg', '#FF5733', 'Orange', 1),
+('https://example.com/passion-candleGreen.jpg', '#EEEEE', 'Green', 1),
+('https://example.com/seduction-candle.jpg', '#F0E68C', 'Khaki', 2),
+('https://example.com/desire-massage-oil.jpg', '#FF00FF', 'Black', 3),
+('https://example.com/romance-set.jpg', '#FF0000', 'Red', 4),
+('https://example.com/candle-holder.jpg', '#0000FF', 'Blue', 5);
+
+INSERT INTO IMAGES(imageURL, colorCode, color, productId) 
+VALUES ("https://m.media-amazon.com/images/I/417tEj3iJ8L._AC_.jpg", "#808080", "Gray", 1 ),
+("https://m.media-amazon.com/images/I/71p-tHQ0u1L._AC_SX679_.jpg", "#FFFFFF", "White", 1 );
+
 
 INSERT INTO FRAGANCIES (name, productId) VALUES
 ('Passion Fruit', 1),

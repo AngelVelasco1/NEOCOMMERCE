@@ -16,6 +16,8 @@ import {
 
 export default function CartProduct() {
   const { cartProducts, updateQuantity, removeProductCart } = useCart();
+  console.log(cartProducts);
+  
   const getSubTotal = () => cartProducts.reduce((total, product) => total + product.quantity * product.price, 0);
   return (
     <>
@@ -33,12 +35,12 @@ export default function CartProduct() {
           {cartProducts.map((product) => (
             <TableRow
               className=""
-              key={`${product.id}-${product.selectedImg.colorCode}`}
+              key={`${product.id}-${product.colorCode}`}
             >
               <TableCell className="font-medium flex">
                 {" "}
                 <Image
-                  src={product.selectedImg.image}
+                  src={product.imageURL}
                   alt="product"
                   width={150}
                   height={150}
@@ -48,15 +50,15 @@ export default function CartProduct() {
                   <p>{product.name}</p>
                   <p>{product.size}</p>
                   <div
-                    key={product.selectedImg.colorCode}
+                    key={product.colorCode}
                     className="w-8 h-8 rounded-full ring-2 ring-blue-500"
-                    style={{ backgroundColor: product.selectedImg.colorCode }}>
+                    style={{ backgroundColor: product.colorCode }}>
 
                   </div>
                   <Button
                   variant={"outline"}
                 onClick={() =>
-                  removeProductCart(product.id, product.selectedImg.colorCode)
+                  removeProductCart(product.id, product.colorCode)
                 }
               >
                 Remove
@@ -72,21 +74,21 @@ export default function CartProduct() {
                   handleDecrease={() =>
                     updateQuantity(
                       product.id,
-                      product.selectedImg.colorCode,
+                      product.colorCode,
                       Math.max(1, product.quantity - 1)
                     )
                   }
                   handleIncrease={() =>
                     updateQuantity(
                       product.id,
-                      product.selectedImg.colorCode,
+                      product.colorCode,
                       product.quantity + 1
                     )
                   }
                 />
               </TableCell>
               <TableCell className="text-right">
-                ${product.quantity * product.price}
+                ${Math.ceil(product.price * product.quantity)}
               </TableCell>
           
             </TableRow>

@@ -1,10 +1,13 @@
 "use client"
 import React from 'react';
 import {useContext, createContext, useState, ReactNode} from 'react';
-import { ProductImages} from "../components/ProductDetails";
+import {ProductImage} from "../page";
+
 export interface CartProductsInfo {
     id: number;
-    selectedImg: ProductImages;
+    color: string;
+    colorCode: string;
+    imageURL: string;
     name: string;
     price: number;
     size: string;
@@ -25,11 +28,11 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
     const addProductToCart = (product: CartProductsInfo) => {
         setCartProduct((prevCart) => {
             const existingProduct = prevCart.find(
-              (item) => item.id === product.id && item.selectedImg.color === product.selectedImg.color
+              (item) => item.id === product.id && item.color === product.color
             );
             if (existingProduct) {
               return prevCart.map((item) =>
-                item.id === product.id && item.selectedImg.color === product.selectedImg.color
+                item.id === product.id && item.color === product.color
                   ? { ...item, quantity: item.quantity + product.quantity }
                   : item
               );
@@ -41,13 +44,13 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
     const updateQuantity = (id: number, color: string, quantity: number) => {
         setCartProduct((prevCart) =>
           prevCart.map((product) =>
-            product.id === id && product.selectedImg.colorCode === color ? { ...product, quantity } : product
+            product.id === id && product.colorCode === color ? { ...product, quantity } : product
           )
         );
       };
 
     const removeProductCart = (id: number, color: string) => {
-        setCartProduct((prev) => prev.filter((product) => !(product.id === id && product.selectedImg.colorCode == color)))
+        setCartProduct((prev) => prev.filter((product) => !(product.id === id && product.colorCode == color)))
     }
 
     return (
