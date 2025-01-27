@@ -6,7 +6,7 @@ import {  useMemo, useState } from "react";
 import { useCart } from "../hooks/useCart";
 import { PaymentIcon, paymentMethods } from "./PaymentIcon";
 import { SetQuantity } from "./SetQuantity";
-import Product from "../product/[productId]/page";
+import React from 'react';
 
 interface ProductDetailsProps {
   data: any;
@@ -16,7 +16,6 @@ export interface ProductImages {
   image: string;
   colorCode: string;
 }
-
 export const ProductDetails = ({ data }: ProductDetailsProps) => {
   const { addProductToCart, cartProducts, updateQuantity } = useCart();
   const [quantity, setQuantity] = useState(1)

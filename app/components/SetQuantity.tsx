@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { CartProductsInfo } from "../hooks/useCart";
+import React from 'react';
 
 interface setQuantityProps {
     cartCounter?: boolean,
