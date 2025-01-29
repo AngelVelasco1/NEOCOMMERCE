@@ -2,14 +2,15 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {   useState } from "react";
+import { useState } from "react";
 import { useCart } from "../hooks/useCart";
 import { PaymentIcon, paymentMethods } from "./PaymentIcon";
 import { SetQuantity } from "./SetQuantity";
 import React from 'react';
+import { IProductDetails } from '../types/products';
 
-interface ProductDetailsProps {
-  data: any;
+export interface ProductDetailsProps {
+  data: IProductDetails[];
 }
 
 export const ProductDetails = ({ data }: ProductDetailsProps) => {
@@ -19,7 +20,6 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("small");
   
-console.log(data);
 
   const handleAddToCart = () => {
     const product = {
@@ -36,13 +36,13 @@ console.log(data);
     addProductToCart(product);
   };
 
-  const cartProduct = cartProducts.find((product) => product.id === data.id);
+  const cartProduct = cartProducts.find((product) => product.id === data[selectedImage].id);
 
   const handleIncrease = () => {
     if (cartProduct) {
       updateQuantity(cartProduct.id, cartProduct.colorCode, cartProduct.quantity + 1);
     } else {
-      setQuantity((prev) => prev + 1); 
+      setQuantity((prev) => Math.min(data[selectedImage].stock, prev + 1)); 
     }
   };
   
@@ -73,7 +73,7 @@ console.log(data);
         <div className="flex-1 relative aspect-square  rounded-lg bg-gray-100">
           <Image
             src={data[selectedImage].imageURL}
-            alt={data.name}
+            alt={data[selectedImage].name}
             width={460}
             height={460}
             className="object-contain p-8 z-40"
@@ -93,7 +93,7 @@ console.log(data);
             >
               <Image
                 src={image.imageURL}
-                alt={`${data.name} thumbnail ${index + 1}`}
+                alt={`${data[selectedImage].name} thumbnail ${index + 1}`}
                 fill
                 className="object-contain"
               />
@@ -105,7 +105,7 @@ console.log(data);
       <div className="space-y-4">
         <div>
           <h1 className="text-3xl line-clamp-3 font-semibold  tracking-wide">
-            {data.name}
+            {data[selectedImage].name}
           </h1>
           <h4 className="text-lg line-clamp-3">{data[0].description}</h4>
 
@@ -122,17 +122,17 @@ console.log(data);
         <div className="space-y-2">
           <p
             className={
-              data.stock > 0
+              data[selectedImage].stock > 0
                 ? "text-sm text-muted-foreground font-bold text-teal-500"
                 : "text-sm text-muted-foreground font-bold text-rose-500"
             }
           >
-            {data.stock > 0 ? "item in stock" : "item out stock"}
+            {data[selectedImage].stock > 0 ? "item in stock" : "item out stock"}
           </p>
           <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
             <div
               className="h-full bg-primary"
-              style={{ width: `${(data.stock / 20) * 100}%` }}
+              style={{ width: `${(data[selectedImage].stock / 20) * 100}%` }}
             />
           </div>
         </div>
@@ -178,9 +178,9 @@ console.log(data);
               .map((color: string) => (
                 <button
                   key={color}
-                  onClick={() => handleImageChange(0, color)} // Default to the first image of the selected color
+                  onClick={() => handleImageChange(0, color)} 
                   className={`w-8 h-8 rounded-full ${
-                    selectedColor === color ? "ring-2 ring-blue-500" : ""
+                    selectedColor === color ? "ring-2 ring-blue-500" : "ring-2 ring-slate-500"
                   }`}
                   style={{ backgroundColor: color }}
                 />
@@ -192,8 +192,6 @@ console.log(data);
           <SetQuantity
             cartProduct={cartProduct || {quantity}}
             handleDecrease={() => handleDecrease()}
-             /* When we have the stock by number replace the function to min and the first arg to data.stock */
-             /* handleIncrease={() => setQuantity((prev) => Math.min(prev + 1, data.stock))} */
             handleIncrease={() => handleIncrease()}
           />
           <div className="w-10/12">

@@ -2,50 +2,16 @@
 import { Banner } from "./components/Banner";
 import { ProductCard } from "./components/ProductCard";
 import React, { useEffect, useState } from "react";
-import { getProducts } from "./services/api";
-
-export interface ProductImage {
-  color: string;
-  colorCode: string;
-  image: string;
-}
-
-export interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  stock: number;
-  images: ProductImage[];
-}
+import { getLatestProducts } from "./services/api";
+import { IProduct } from "./types/products";
 
 export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const data = await getProducts();
-      
-      const productsMap: { [key: number]: Product } = {};
-      data.map((item: any) => {
-        if (!productsMap[item.productId]) {
-          productsMap[item.productId] = {
-            id: item.productId,
-            name: item.name,
-            description: item.description,
-            price: item.price,
-            stock: item.stock,
-            images: [],
-          };
-        }
-        productsMap[item.productId].images.push({
-          color: item.color,
-          colorCode: item.colorCode,
-          image: item.imageURL,
-        });
-      });
-
-      setProducts(Object.values(productsMap));
+      const data = await getLatestProducts();
+      setProducts(data);
     };
 
     fetchProducts();

@@ -30,6 +30,12 @@ INSERT INTO PRODUCTS (name, description, price, stock, status, categoryId, creat
 ('Romance Set', 'Gift set with candles and massage oil', 49.99, 20, 1, 3, 1, 1),
 ('Candle Holder', 'Elegant accessory for sensual candles', 14.99, 100, 1, 4, 1, 1);
 
+INSERT INTO PRODUCTS (name, description, price, stock, status, categoryId, createdBy, updatedBy) VALUES
+('Aphrodisiac Oil', 'Sensual massage oil with aphrodisiac properties', 24.99, 60, 1, 2, 1, NULL),
+('Relaxing Bath Salts', 'Aromatic bath salts for relaxation', 15.99, 80, 3, 3, 1, 1),
+('Luxury Candle', 'Handmade luxury candle with a unique fragrance', 39.99, 25, 1, 1, 1, NULL),
+('Massage Stones', 'Set of heated massage stones', 29.99, 35, 1, 4, 1, 1),
+('Scent Diffuser', 'Electric scent diffuser with multiple settings', 49.99, 20, 1, 4, 1, 1);
 INSERT INTO IMAGES (imageURL, colorCode, color, productId) VALUES
 ('https://example.com/passion-candle.jpg', '#FF5733', 'Orange', 1),
 ('https://example.com/passion-candleGreen.jpg', '#EEEEE', 'Green', 1),

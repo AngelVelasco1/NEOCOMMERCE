@@ -13,7 +13,11 @@ export const getProducts = async () => {
 
 export const getProduct = async (id: number) => {
   const { data } = await api.get(`/api/use/products?id=${id}`);
-  console.log(data);
-  
   return data;
 };
+
+export const getLatestProducts = async () => {
+  const { data } = await api.get(`/api/use/latestProducts`);
+  return data;
+};
+

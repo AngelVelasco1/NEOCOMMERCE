@@ -1,8 +1,8 @@
 "use client"
+import React from 'react';
 
 import { Button } from "@/components/ui/button";
 import { CartProductsInfo } from "../hooks/useCart";
-import React from 'react';
 
 interface setQuantityProps {
     cartCounter?: boolean,
@@ -16,7 +16,7 @@ export const SetQuantity: React.FC<setQuantityProps> = ({cartCounter, cartProduc
            {cartCounter ? null : 
             <div className="flex w-fit items-center rounded-lg ">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 className="rounded-none text-md"
                 onClick={handleDecrease}
@@ -25,7 +25,7 @@ export const SetQuantity: React.FC<setQuantityProps> = ({cartCounter, cartProduc
               </Button>
               <div className="w-12 text-center">{cartProduct?.quantity}</div>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 className="rounded-none text-md"
                 onClick={handleIncrease}

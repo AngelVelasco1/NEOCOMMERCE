@@ -16,7 +16,7 @@ export const Banner = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center space-y-5 px-4">
-          <div className="relative h-[350px] overflow-hidden rounded-lg">
+          <div className="relative h-[320px] overflow-hidden rounded-lg">
             <Image
               src={"/imgs/bannerImg1.svg"}
               alt="Pink roses with luxury candle"

@@ -1,7 +1,6 @@
 "use client"
 import React from 'react';
 import {useContext, createContext, useState, ReactNode} from 'react';
-import {ProductImage} from "../page";
 
 export interface CartProductsInfo {
     id: number;
@@ -59,7 +58,6 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
     </CartContext.Provider>
     )
 }
-// create an function
 
 export const useCart = () => {
     const context = useContext(CartContext);
