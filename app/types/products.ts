@@ -7,11 +7,11 @@ export interface IProductImage {
 export interface IProduct {
   id: number;
   name: string;
-  description: string;
   price: number;
   stock: number;
   color: string;
   colorCode: string;
+  category: string;
   imageURL: string;
 }
 

@@ -4,6 +4,8 @@ import { Poppins, Volkhov } from "next/font/google";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { CartProvider } from "./hooks/useCart";
+import React from 'react';
+
 const volkov = Volkhov({
   weight: ["400", "700"],
   subsets: ["latin"],

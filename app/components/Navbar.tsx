@@ -13,7 +13,7 @@ export const Navbar = () => {
     },
     {
       name: "Productos",
-      url: "#",
+      url: "/products",
     },
     {
       name: "Nosotros",

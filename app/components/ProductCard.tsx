@@ -12,7 +12,7 @@ interface ProductCardProps {
 export const ProductCard = ({ data }: ProductCardProps) => {
   return (
   <Link href={`/product/${data.id}`}>
-      <div className="flex flex-col group relative transition-transform hover:scale-105 p-3 gap-3">
+      <div className="flex flex-col group relative transition-transform hover:scale-105 p-3 gap-4">
         <div className="relative aspect-square overflow-hidden w-full">
           {data.imageURL ? <Image
             src={data.imageURL}

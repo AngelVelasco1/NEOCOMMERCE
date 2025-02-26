@@ -9,7 +9,6 @@ type idParam = {
 export const Product = async ({params}: {params : idParam}) => {
     const { productId } = await params;
     const product = await getProduct(parseInt(productId));
-    console.log(product);
     
     return (
         <div className={`${poppins.className} container mx-auto`}>
