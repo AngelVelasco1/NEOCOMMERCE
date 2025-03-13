@@ -1,7 +1,6 @@
 "use client"
 import React from 'react';
-import {useContext, createContext, useState, ReactNode} from 'react';
-
+import {useContext, createContext, useState, useCallback, ReactNode} from 'react';
 export interface CartProductsInfo {
     id: number;
     color: string;
@@ -24,7 +23,7 @@ const CartContext = createContext<CartProductsContext | undefined>(undefined) ;
 export const CartProvider = ({children}: {children: ReactNode}) => {
     const [cartProducts, setCartProduct] = useState<CartProductsInfo[]>([]);
 
-    const addProductToCart = (product: CartProductsInfo) => {
+    const addProductToCart = useCallback((product: CartProductsInfo) => {
         setCartProduct((prevCart) => {
             const existingProduct = prevCart.find(
               (item) => item.id === product.id && item.color === product.color
@@ -38,7 +37,7 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
             }
             return [...prevCart, product];
           })
-        }
+        }, [])
 
     const updateQuantity = (id: number, color: string, quantity: number) => {
         setCartProduct((prevCart) =>

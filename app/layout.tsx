@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${volkov.className}`}>
+      <body className={`${volkov.className} `}>
         <CartProvider>
           <div className="flex flex-col min-h-screen">
             <Navbar />
@@ -43,6 +43,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </CartProvider>
+
       </body>
     </html>
   );

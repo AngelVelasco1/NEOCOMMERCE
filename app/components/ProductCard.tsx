@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 import { IProduct } from "../types/products";
 
-interface ProductCardProps {
+export interface ProductCardProps {
     data: IProduct
 }
 
