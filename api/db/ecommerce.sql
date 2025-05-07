@@ -1,78 +1,115 @@
-CREATE DATABASE lights_ecommerce;
-USE lights_ecommerce;
-
-CREATE TABLE CUSTOMERS (
+CREATE TABLE CUSTOMERS(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    phoneNumber VARCHAR(15) NOT NULL UNIQUE,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    address VARCHAR(180) NOT NULL,
-    countryId INT REFERENCES COUNTRIES(id)
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    phoneNumber VARCHAR(255) NOT NULL,
+    createdAt TIMESTAMP NOT NULL
 );
-
-CREATE TABLE PRODUCTS (
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    description VARCHAR(255) NOT NULL,
-    price FLOAT UNSIGNED NOT NULL,
-    stock INT UNSIGNED NOT NULL,
-    status BOOLEAN NOT NULL,
-    categoryId INT REFERENCES CATEGORIES(id),
-    createdBy BIGINT NOT NULL,
-    updatedBy BIGINT DEFAULT 'No updated'
-);
-
-CREATE TABLE PRODUCT_BY_ORDER(
-    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    quantity INT UNSIGNED NOT NULL,
-    salePrice DECIMAL(8, 2) NOT NULL,
-    productId BIGINT REFERENCES PRODUCTS(id),
-    orderId BIGINT REFERENCES ORDERS(id)
-);
-
-CREATE TABLE CATEGORIES(
+ALTER TABLE
+    CUSTOMERS ADD UNIQUE customers_email_unique(email);
+ALTER TABLE
+    CUSTOMERS ADD UNIQUE customers_phonenumber_unique(phoneNumber);
+CREATE TABLE PRODUCTS(
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    price FLOAT(53) NOT NULL,
+    stock INT NOT NULL,
+    weight DECIMAL(8, 2) NOT NULL,
+    categoryId BIGINT NOT NULL,
+    status BOOLEAN NOT NULL,
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP NOT NULL
+);
+ALTER TABLE
+    PRODUCTS ADD UNIQUE products_name_unique(name);
+CREATE TABLE ORDER_ITEMS(
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    unitPrice DECIMAL(8, 2) NOT NULL,
+    salePrice DECIMAL(8, 2) NOT NULL,
+    quantity INT NOT NULL,
+    subTotal DECIMAL(8, 2) NOT NULL,
+    productId BIGINT NOT NULL,
+    orderId BIGINT NOT NULL
+);
+CREATE TABLE CATEGORIES(
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
 -- status: 1. Pago pendiente, pedido creado, 2. Pago confirmado, procesando pedido 3. Pedido despachado 4. Pedido entregado
 CREATE TABLE ORDERS(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     date DATE NOT NULL,
-    status ENUM('pending', 'processing', 'dispatched', 'delivered') NOT NULL,
-    totalAmount DECIMAL(8, 2) NOT NULL,
-    customerId BIGINT REFERENCES CUSTOMERS(id)
+    status ENUM('pending', 'processing', 'dispatched', 'delivered') NOT NULL,    
+    totalPrice DECIMAL(8, 2) NOT NULL,
+    customerId BIGINT NOT NULL,
+    couponId BIGINT NULL,
+    createdAt TIMESTAMP NOT NULL,
+    updatedAt TIMESTAMP NOT NULL
 );
-
 CREATE TABLE IMAGES(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     imageURL VARCHAR(255) NOT NULL,
-    colorCode VARCHAR(50) NOT NULL,
-    color VARCHAR(50) NOT NULL,
-    productId BIGINT REFERENCES PRODUCTS(id)
+    productId BIGINT NOT NULL
 );
-
-CREATE TABLE COUNTRIES(
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    city VARCHAR(100) NOT NULL,
-    deparment VARCHAR(100) NOT NULL
-);
-
 CREATE TABLE ORDERS_LOGS(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    previousStatus ENUM('pending', 'processing', 'dispatched', 'delivered') NOT NULL,
-    newStatus ENUM('pending', 'processing', 'dispatched', 'delivered') NOT NULL,
-    orderId BIGINT REFERENCES ORDERS(id),
-    changedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    changedBy BIGINT NOT NULL
+    previousStatus ENUM('') NOT NULL,
+    newStatus ENUM('') NOT NULL,
+    orderId BIGINT NOT NULL,
+    changedAt TIMESTAMP NOT NULL
 );
-
-CREATE TABLE FRAGANCIES(
+CREATE TABLE PAYMENTS(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30) NOT NULL,
-    productId BIGINT REFERENCES PRODUCTS(id)
+    method ENUM('') NOT NULL,
+    status ENUM('Completed', 'Refused') NOT NULL,
+    amount DECIMAL(8, 2) NOT NULL,
+    paymentDate DATETIME NULL,
+    orderId BIGINT NOT NULL,
+    customerId BIGINT NOT NULL,
+    transactionId BIGINT NOT NULL,
 );
 
-DROP TABLE IMAGES;
-
+CREATE TABLE ADDRESSES(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    deparment VARCHAR(255) NOT NULL,
+    customerId INT NOT NULL,
+    countryId INT NOT NULL,
+    createdAt TIMESTAMP NOT NULL
+);
+CREATE TABLE COUNTRIES(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+CREATE TABLE COUPONS(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(255) NOT NULL,
+    discount DECIMAL(8, 2) NOT NULL,
+    expDate DATETIME NOT NULL
+);
+ALTER TABLE
+    ADDRESSES ADD CONSTRAINT addresses_countryid_foreign FOREIGN KEY(countryId) REFERENCES COUNTRIES(id);
+ALTER TABLE
+    PAYMENTS ADD CONSTRAINT payments_customerid_foreign FOREIGN KEY(customerId) REFERENCES CUSTOMERS(id);
+ALTER TABLE
+    IMAGES ADD CONSTRAINT images_productid_foreign FOREIGN KEY(productId) REFERENCES PRODUCTS(id);
+ALTER TABLE
+    ORDERS ADD CONSTRAINT orders_customerid_foreign FOREIGN KEY(customerId) REFERENCES CUSTOMERS(id);
+ALTER TABLE
+    ORDER_ITEMS ADD CONSTRAINT order_items_productid_foreign FOREIGN KEY(productId) REFERENCES PRODUCTS(id);
+ALTER TABLE
+    ORDER_ITEMS ADD CONSTRAINT order_items_orderid_foreign FOREIGN KEY(orderId) REFERENCES ORDERS(id);
+ALTER TABLE
+    PAYMENTS ADD CONSTRAINT payments_orderid_foreign FOREIGN KEY(orderId) REFERENCES ORDERS(id);
+ALTER TABLE
+    ORDERS ADD CONSTRAINT orders_couponid_foreign FOREIGN KEY(couponId) REFERENCES COUPONS(id);
+ALTER TABLE
+    PRODUCTS ADD CONSTRAINT products_categoryid_foreign FOREIGN KEY(categoryId) REFERENCES CATEGORIES(id);
+ALTER TABLE
+    ORDERS_LOGS ADD CONSTRAINT orders_logs_orderid_foreign FOREIGN KEY(orderId) REFERENCES ORDERS(id);
+ALTER TABLE
+    ADDRESSES ADD CONSTRAINT addresses_customerid_foreign FOREIGN KEY(customerId) REFERENCES CUSTOMERS(id);
