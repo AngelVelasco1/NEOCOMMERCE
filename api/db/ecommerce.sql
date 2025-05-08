@@ -33,16 +33,40 @@ CREATE TABLE ORDER_ITEMS(
     productId BIGINT NOT NULL,
     orderId BIGINT NOT NULL
 );
+
+
 CREATE TABLE CATEGORIES(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
--- status: 1. Pago pendiente, pedido creado, 2. Pago confirmado, procesando pedido 3. Pedido despachado 4. Pedido entregado
+
+CREATE TABLE CART (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    customerId BIGINT NULL, -- NULL si es un usuario anónimo
+    sessionToken VARCHAR(255) NULL, -- Para carritos no autenticados
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+
+
+CREATE TABLE CART_ITEMS (
+   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    cartId BIGINT NOT NULL,
+    productId BIGINT NOT NULL,
+    quantity INT NOT NULL,
+    unitPrice DECIMAL(8,2) NOT NULL,
+    FOREIGN KEY (cartId) REFERENCES cart(id),
+    FOREIGN KEY (productId) REFERENCES products(id)
+)
+
+
+
+-- 1. Pago confirmado, procesando pedido 2. Pedido despachado 3. Pedido entregado
 CREATE TABLE ORDERS(
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     date DATE NOT NULL,
-    status ENUM('pending', 'processing', 'dispatched', 'delivered') NOT NULL,    
+    status ENUM('processing', 'dispatched', 'delivered') NOT NULL,    
     totalPrice DECIMAL(8, 2) NOT NULL,
     customerId BIGINT NOT NULL,
     couponId BIGINT NULL,
