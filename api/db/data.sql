@@ -45,8 +45,8 @@ INSERT INTO IMAGES (imageURL, colorCode, color, productId) VALUES
 ('https://example.com/candle-holder.jpg', '#0000FF', 'Blue', 5);
 
 INSERT INTO IMAGES(imageURL, colorCode, color, productId) 
-VALUES ("https://m.media-amazon.com/images/I/417tEj3iJ8L._AC_.jpg", "#808080", "Gray", 1 ),
-("https://m.media-amazon.com/images/I/71p-tHQ0u1L._AC_SX679_.jpg", "#FFFFFF", "White", 1 );
+VALUES (https://m.media-amazon.com/images/I/417tEj3iJ8L._AC_.jpg, #808080, Gray, 1 ),
+(https://m.media-amazon.com/images/I/71p-tHQ0u1L._AC_SX679_.jpg, #FFFFFF, White, 1 );
 
 
 INSERT INTO FRAGANCIES (name, productId) VALUES
@@ -84,3 +84,6 @@ INSERT INTO ORDERS_LOGS (previousStatus, newStatus, orderId, changedBy) VALUES
 ('pending', 'processing', 6, 1),
 ('processing', 'dispatched', 7, 2),
 ('dispatched', 'delivered', 8, 3);
+
+
+
