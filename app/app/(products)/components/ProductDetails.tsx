@@ -3,11 +3,11 @@ import Image from "next/image";
 import { Button } from "@/app/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/app/ui/radio-group";
 import { useState } from "react";
-import { useCart } from "../hooks/useCart";
+import { useCart } from "../../(cart)/hooks/useCart";
 import { PaymentIcon, paymentMethods } from "./PaymentIcon";
 import { SetQuantity } from "./SetQuantity";
 import React from 'react';
-import { IProductDetails } from '../types/products';
+import { IProductDetails } from '../types';
 
 export interface ProductDetailsProps {
   data: IProductDetails[];

@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix app\" \"npm run dev --prefix api\"",
+    "front": "npm run dev --prefix app",
+    "back": "npm run dev --prefix api",
     "build": "npm run build --prefix app",
     "start": "npm run start --prefix app"
   },

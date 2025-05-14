@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import React from 'react';
-import { Skeleton } from "@/app/ui/skeleton"
+import { Skeleton } from "../../components/ui/skeleton";
 
 import { IProduct } from "../types/products";
 

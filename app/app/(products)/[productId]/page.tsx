@@ -1,7 +1,7 @@
-import { ProductDetails } from "../../components/ProductDetails";
+import { ProductDetails } from "../components/ProductDetails";
 import { poppins } from "../../layout"
 import React from "react";
-import { getProduct } from "@/app/services/api";
+import { getProduct } from "@/app/(products)/services/api";
  
 type idParam = {
     productId: string

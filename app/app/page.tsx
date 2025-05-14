@@ -1,10 +1,10 @@
 "use client";
 import { Banner } from "./components/Banner";
-import { ProductCard } from "./components/ProductCard";
+import { ProductCard } from "./(products)/components/ProductCard";
 
 import React, { useEffect, useState } from "react";
-import { getLatestProducts } from "./services/api";
-import { IProduct } from "./types/products";
+import { getLatestProducts } from "./(products)/services/api";
+import { IProduct } from "./(products)/types";
 import { redirect } from "next/navigation";
 import { Testimonials } from "./components/Testimonials";
 import { BenefitsList } from "./components/BenefitsList";
@@ -28,7 +28,7 @@ export default function Home() {
         </div>
         <h3 className="text-3xl text-center">Ultimos Productos</h3>
         <div
-          className={` grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3
+          className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3
           2xl:grid-cols-4 gap-16 px-10 py-4`}
         >
           {products.map((product) => {

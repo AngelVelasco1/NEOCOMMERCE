@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CONFIG } from "../../../api/config/credentials";
+import { CONFIG } from "../../../../api/config/credentials";
 
 export const api = axios.create({
   baseURL: `http://${CONFIG.host}:${CONFIG.port}`,

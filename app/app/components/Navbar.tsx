@@ -2,7 +2,7 @@ import Link from "next/link";
 import { colors } from "../layout";
 import { TbShoppingBag } from "react-icons/tb";
 import { LuUserRound } from "react-icons/lu";
-import { Input } from "@/app/ui/input";
+import { Input } from "./ui/input";
 import React from 'react';
 
 export const Navbar = () => {

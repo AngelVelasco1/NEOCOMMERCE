@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useCallback } from "react";
-import { IProduct } from "../types/products";
-import { Button } from "@/app/ui/button";
+import { IProduct } from "../types";
+import { Button } from "../../components/ui/button";
 import { PriceSelector } from "./PriceSelector";
 
 interface FilterProps {

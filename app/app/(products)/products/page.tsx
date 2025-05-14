@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { IProduct } from "../types/products";
+import { IProduct } from "../types";
 import { getProducts } from "../services/api";
-import { ProductCard } from "../components/ProductCard";
+import { ProductCard } from "../../components/ProductCard";
 import { Filter } from "../components/filter";
 
 export const ProductsPage = () => {
