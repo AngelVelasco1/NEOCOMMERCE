@@ -1,8 +1,8 @@
 "use client"
 import React from 'react';
 
-import { Button } from "@/app/ui/button";
-import { CartProductsInfo } from "../../(cart)/hooks/useCart";
+import { Button } from "../components/ui/button";
+import { CartProductsInfo } from "../(cart)/hooks/useCart";
 
 interface setQuantityProps {
     cartCounter?: boolean,

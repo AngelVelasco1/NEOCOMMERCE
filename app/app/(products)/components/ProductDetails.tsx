@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import { Button } from "@/app/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/app/ui/radio-group";
+import { Button } from "../../components/ui/button";
+import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import { useState } from "react";
 import { useCart } from "../../(cart)/hooks/useCart";
-import { PaymentIcon, paymentMethods } from "./PaymentIcon";
-import { SetQuantity } from "./SetQuantity";
+import { PaymentIcon, paymentMethods } from "../../components/PaymentIcon";
+import { SetQuantity } from "../../components/SetQuantity";
 import React from 'react';
 import { IProductDetails } from '../types';
 
