@@ -5,8 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "tsx app.ts",
+    "back": "npm run dev",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^6.8.1",

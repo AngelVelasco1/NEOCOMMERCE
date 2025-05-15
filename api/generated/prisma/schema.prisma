@@ -1,0 +1,222 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model addresses {
+  id         Int      @id @default(autoincrement())
+  address    String   @db.VarChar(255)
+  country    String   @db.VarChar(255)
+  city       String   @db.VarChar(255)
+  department String   @db.VarChar(255)
+  userid     Int
+  createdat  DateTime @default(now()) @db.Timestamp(6)
+  users      users    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model brands {
+  id       Int        @id
+  name     String     @db.VarChar(255)
+  imageurl String?    @db.VarChar(255)
+  products products[]
+}
+
+model cart {
+  id           Int          @id @default(autoincrement())
+  userid       Int?
+  sessiontoken String?      @db.Uuid
+  totalprice   Int
+  createdat    DateTime     @default(now()) @db.Timestamp(6)
+  expiresat    DateTime?    @db.Timestamp(6)
+  users        users?       @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cart_items   cart_items[]
+}
+
+model cart_items {
+  id        Int      @id @default(autoincrement())
+  cartid    Int
+  productid Int
+  quantity  Int
+  unitprice Int
+  expiresat DateTime @db.Timestamp(6)
+  cart      cart     @relation(fields: [cartid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products  products @relation(fields: [productid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model categories {
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @db.VarChar(255)
+  idsubcategory        Int
+  subcategory          subcategory            @relation(fields: [idsubcategory], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  category_subcategory category_subcategory[]
+  products             products[]
+}
+
+model category_subcategory {
+  categoryid    Int
+  subcategoryid Int
+  categories    categories  @relation(fields: [categoryid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subcategory   subcategory @relation(fields: [subcategoryid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([categoryid, subcategoryid])
+}
+
+model coupons {
+  id        Int      @id @default(autoincrement())
+  code      String   @db.VarChar(255)
+  discount  Decimal  @db.Decimal(8, 2)
+  createdat DateTime @default(now()) @db.Timestamp(6)
+  expiresat DateTime @db.Timestamp(6)
+  orders    orders[]
+}
+
+model images {
+  id        Int      @id @default(autoincrement())
+  imageurl  String   @db.VarChar(255)
+  colorcode String   @db.VarChar(7)
+  color     String   @db.VarChar(255)
+  productid Int
+  products  products @relation(fields: [productid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model order_items {
+  id        Int       @id @default(autoincrement())
+  price     Int
+  quantity  Int
+  subtotal  Int?      @default(dbgenerated("(price * quantity)"))
+  productid Int
+  orderid   Int
+  createdat DateTime  @default(now()) @db.Timestamp(6)
+  updatedat DateTime? @db.Timestamp(6)
+  orders    orders    @relation(fields: [orderid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  products  products  @relation(fields: [productid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model order_logs {
+  id             Int                @id @default(autoincrement())
+  previousstatus orders_status_enum
+  newstatus      orders_status_enum
+  note           String?            @db.VarChar(255)
+  ipaddress      String             @db.VarChar(45)
+  orderid        Int
+  updatedat      DateTime?          @db.Timestamp(6)
+  updatedby      Int
+  orders         orders             @relation(fields: [orderid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model orders {
+  id            Int                @id @default(autoincrement())
+  status        orders_status_enum
+  total         Int
+  paymentmethod orders_status_enum
+  paymentstatus Boolean
+  transactionid String             @db.VarChar(255)
+  userid        Int
+  couponid      Int?
+  createdat     DateTime           @default(now()) @db.Timestamp(6)
+  updatedat     DateTime?          @db.Timestamp(6)
+  updatedby     Int
+  order_items   order_items[]
+  order_logs    order_logs[]
+  coupons       coupons?           @relation(fields: [couponid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users         users              @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model permissions {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique @db.VarChar(255)
+  description      String?            @db.VarChar(255)
+  role_permissions role_permissions[]
+}
+
+model products {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  description String
+  price       Int
+  stock       Int
+  weight      Decimal       @db.Decimal(8, 2)
+  sizes       String        @db.VarChar(255)
+  isactive    Boolean
+  categoryid  Int
+  brandid     Int
+  createdat   DateTime      @default(now()) @db.Timestamp(6)
+  createdby   Int
+  updatedat   DateTime?     @db.Timestamp(6)
+  updatedby   Int
+  cart_items  cart_items[]
+  images      images[]
+  order_items order_items[]
+  brands      brands        @relation(fields: [brandid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  categories  categories    @relation(fields: [categoryid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  reviews     reviews[]
+}
+
+model reviews {
+  id        Int      @id @default(autoincrement())
+  rating    Int
+  comment   String?
+  userid    Int
+  productid Int
+  createdat DateTime @default(now()) @db.Timestamp(6)
+  products  products @relation(fields: [productid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     users    @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model role_permissions {
+  roleid       Int
+  permissionid Int
+  permissions  permissions @relation(fields: [permissionid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  roles        roles       @relation(fields: [roleid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([roleid, permissionid])
+}
+
+model roles {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique @db.VarChar(255)
+  role_permissions role_permissions[]
+  users            users[]
+}
+
+model subcategory {
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @db.VarChar(255)
+  categories           categories[]
+  category_subcategory category_subcategory[]
+}
+
+model users {
+  id            Int         @id @default(autoincrement())
+  name          String      @db.VarChar(255)
+  email         String      @unique @db.VarChar(255)
+  emailverified Boolean?
+  password      String      @db.VarChar(255)
+  phonenumber   String      @unique @db.VarChar(255)
+  roleid        Int
+  createdat     DateTime    @default(now()) @db.Timestamp(6)
+  addresses     addresses[]
+  cart          cart[]
+  orders        orders[]
+  reviews       reviews[]
+  roles         roles       @relation(fields: [roleid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum ORDERS_paymentMethod_enum {
+  paypal
+  nequi
+  efecty
+}
+
+enum orders_status_enum {
+  Pending
+  Paid
+  Processing
+  Shipped
+  Delivered
+}

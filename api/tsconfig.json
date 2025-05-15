@@ -13,7 +13,9 @@
     "types": ["node"]
   },
   "include": [
-    "./**/*.ts"
+    "./**/*.ts",
+    "prisma/schema.prisma",
+    "prisma/**/*"
   ],
   "exclude": [
     "node_modules",

@@ -1,3 +1,5 @@
+import { PrismaClient } from "@prisma/client";
+
 import express from 'express';
 import { initRoutes } from './routes/router.js';
 import { CONFIG } from './config/credentials.js';
@@ -16,12 +18,15 @@ app.use(express.json());
 
 app.use('/api', initRoutes());
 
+
+export const prisma = new PrismaClient();
+
+app.get('/', (req, res) => {
+  res.send('API is running');
+});
+
 app.listen(CONFIG.port, () => {
   console.log(`Servidor corriendo en http://${CONFIG.host}:${CONFIG.port}`);
 });
 
 
-import * as dotenv from 'dotenv'
-
-dotenv.config() // Load the environment variables
-console.log(`The connection URL is ${process.env.DATABASE_URL}`)
