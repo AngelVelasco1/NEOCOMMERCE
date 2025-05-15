@@ -3,6 +3,7 @@ import { initRoutes } from './routes/router.js';
 import { CONFIG } from './config/credentials.js';
 import cors from 'cors';
 
+
 const app = express();
 
 app.use(cors({
@@ -18,3 +19,9 @@ app.use('/api', initRoutes());
 app.listen(CONFIG.port, () => {
   console.log(`Servidor corriendo en http://${CONFIG.host}:${CONFIG.port}`);
 });
+
+
+import * as dotenv from 'dotenv'
+
+dotenv.config() // Load the environment variables
+console.log(`The connection URL is ${process.env.DATABASE_URL}`)
