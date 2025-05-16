@@ -9,7 +9,7 @@ export interface IProduct {
   name: string;
   price: number;
   stock: number;
-  color: string;
+  color: string ;
   colorCode: string;
   category: string;
   imageURL: string;

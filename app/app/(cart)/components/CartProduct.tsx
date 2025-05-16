@@ -2,7 +2,7 @@
 import React from "react";
 import { useCart } from "../hooks/useCart";
 import Image from "next/image";
-import { SetQuantity } from "../../(products)/components/SetQuantity";
+import { SetQuantity } from "../../products/components/SetQuantity";
 import { Button } from "@/app/ui/button";
 import {
   Table,

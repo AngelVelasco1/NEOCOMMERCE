@@ -1,10 +1,10 @@
 "use client";
 import { Banner } from "./components/Banner";
-import { ProductCard } from "./(products)/components/ProductCard";
+import { ProductCard } from "./products/components/ProductCard";
 
 import React, { useEffect, useState } from "react";
-import { getLatestProducts } from "./(products)/services/api";
-import { IProduct } from "./(products)/types";
+import { getLatestProducts } from "./products/services/api";
+import { IProduct } from "./products/types";
 import { redirect } from "next/navigation";
 import { Testimonials } from "./components/Testimonials";
 import { BenefitsList } from "./components/BenefitsList";

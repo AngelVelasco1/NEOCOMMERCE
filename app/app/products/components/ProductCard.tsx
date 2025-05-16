@@ -3,7 +3,7 @@ import Link from "next/link"
 import React from 'react';
 import { Skeleton } from "../../components/ui/skeleton";
 
-import { IProduct } from "../types/products";
+import { IProduct } from "../types";
 
 export interface ProductCardProps {
     data: IProduct
@@ -11,7 +11,7 @@ export interface ProductCardProps {
 
 export const ProductCard = ({ data }: ProductCardProps) => {
   return (
-  <Link href={`/product/${data.id}`}>
+  <Link href={`/${data.id}`}>
       <div className="flex flex-col group relative transition-transform hover:scale-105 p-3 gap-4">
         <div className="relative aspect-square overflow-hidden w-full">
           {data.imageURL ? <Image

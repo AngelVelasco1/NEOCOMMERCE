@@ -37,3 +37,32 @@ VALUES (
   1,  -- ID del usuario que crea
   1   -- ID del usuario que actualiza
 );
+
+
+
+INSERT INTO PRODUCTS (
+  name,
+  description,
+  price,
+  stock,
+  weight,
+  sizes,
+  isActive,
+  categoryId,
+  brandId,
+  createdBy,
+  updatedBy
+)
+VALUES (
+  'Pantaloneta Dry-Fit',
+  'la mejor pantaloneta',
+  95000,
+  30,
+  0.25,
+  'S,M,L,XL',
+  TRUE,
+  1,  -- ID categoría
+  1,  -- ID marca
+  1,  -- ID del usuario que crea
+  1   -- ID del usuario que actualiza
+);

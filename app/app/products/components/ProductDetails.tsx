@@ -18,14 +18,14 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
   const [quantity, setQuantity] = useState(1)
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState("");
-  const [selectedSize, setSelectedSize] = useState("small");
+  const [selectedSize, setSelectedSize] = useState("small");  
   
 
   const handleAddToCart = () => {
     const product = {
       id: data[0].id,
       color: selectedColor,
-      colorCode: data[selectedImage].colorCode,
+      colorCode: data[selectedImage].colorCode, 
       imageURL: data[selectedImage].imageURL,
       name: data[0].name,
       price: data[0].price,
@@ -72,8 +72,8 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
       <div className="flex flex-row-reverse">
         <div className="flex-1 relative aspect-square  rounded-lg bg-gray-100">
           <Image
-            src={data[selectedImage].imageURL}
-            alt={data[selectedImage].name}
+            src={"https://th.bing.com/th/id/OIP.P9dxcum1kbgLaBdw2F_3EQHaE_?rs=1&pid=ImgDetMain"} 
+            alt={""}
             width={460}
             height={460}
             className="object-contain p-8 z-40"
@@ -92,7 +92,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
               }`}
             >
               <Image
-                src={image.imageURL}
+                src={"https://th.bing.com/th/id/OIP.P9dxcum1kbgLaBdw2F_3EQHaE_?rs=1&pid=ImgDetMain"}
                 alt={`${data[selectedImage].name} thumbnail ${index + 1}`}
                 fill
                 className="object-contain"
@@ -105,7 +105,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
       <div className="space-y-4">
         <div>
           <h1 className="text-3xl line-clamp-3 font-semibold  tracking-wide">
-            {data[selectedImage].name}
+            {data[selectedImage].name ? data[selectedImage].name : ""}
           </h1>
           <h4 className="text-lg line-clamp-3">{data[0].description}</h4>
 

@@ -26,18 +26,18 @@ export const getProductsService = async (id?: number) => {
             category: p.categories?.name ?? null // Devuelve el nombre de la categoría
         }));
     }
-    // Obtener un producto por id con todas sus imágenes
+    
     const product = await prisma.products.findUnique({
         where: { id },
         include: {
-            images: true
+            images: true,
+            categories: true 
         }
     });
-    return product;
+      return {...product}
 };
 
 export const getLatestProductsService = async () => {
-    // Obtener los últimos 6 productos con una imagen
     const products = await prisma.products.findMany({
         orderBy: { id: 'desc' },
         take: 6,
@@ -48,13 +48,13 @@ export const getLatestProductsService = async () => {
         }
     });
     return products.map(p => ({
-        id: p.id,
-        name: p.name,
-        description: p.description,
-        price: p.price,
-        stock: p.stock,
-        imageURL: p.images[0]?.imageurl ?? null,
-        colorCode: p.images[0]?.colorcode ?? null,
-        color: p.images[0]?.color ?? null
+            id: p.id,
+            name: p.name,
+            description: p.description,
+            price: p.price,
+            stock: p.stock,
+            imageURL: p.images[0]?.imageurl ?? null,
+            colorCode: p.images[0]?.colorcode ?? null,
+            color: p.images[0]?.color ?? null
     }));
 };
