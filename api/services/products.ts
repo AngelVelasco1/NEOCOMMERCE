@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-
+import pkg from '@prisma/client';
+const { PrismaClient } = pkg;
 const prisma = new PrismaClient();
 
 export const getProductsService = async (id?: number) => {
@@ -10,7 +10,7 @@ export const getProductsService = async (id?: number) => {
                 images: {
                     take: 1 // Solo la primera imagen
                 },
-                category: true
+                categories: true // Incluir la categoría
             }
         });
         // Opcional: adaptar el formato para que coincida con tu frontend
@@ -20,10 +20,10 @@ export const getProductsService = async (id?: number) => {
             description: p.description,
             price: p.price,
             stock: p.stock,
-            imageURL: p.images[0]?.imageURL ?? null,
-            colorCode: p.images[0]?.colorCode ?? null,
+            imageURL: p.images[0]?.imageurl ?? null,
+            colorCode: p.images[0]?.colorcode ?? null,
             color: p.images[0]?.color ?? null,
-            category: p.category?.name ?? null
+            category: p.categories?.name ?? null // Devuelve el nombre de la categoría
         }));
     }
     // Obtener un producto por id con todas sus imágenes
@@ -53,8 +53,8 @@ export const getLatestProductsService = async () => {
         description: p.description,
         price: p.price,
         stock: p.stock,
-        imageURL: p.images[0]?.imageURL ?? null,
-        colorCode: p.images[0]?.colorCode ?? null,
+        imageURL: p.images[0]?.imageurl ?? null,
+        colorCode: p.images[0]?.colorcode ?? null,
         color: p.images[0]?.color ?? null
     }));
 };

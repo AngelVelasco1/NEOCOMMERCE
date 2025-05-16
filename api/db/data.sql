@@ -1,4 +1,39 @@
-INSERT INTO USERS (name, email, emailVerified, password, phoneNumber, roleId, createdAt) VALUES
+INSERT INTO USERS (name, email, emailVerified, password, phoneNumber, roleId) VALUES
 ('Angel Perez', 'angel@example.com', TRUE, 'hashedpassword123', '3001234567', 1),
 ('Maria Gomez', 'maria@example.com', FALSE, 'hashedpassword456', '3129876543', 2),
 ('Carlos Lopez', 'carlos@example.com', TRUE, 'hashedpassword789', '3156543210', 2);
+
+INSERT INTO subcategory (name) VALUES ('pantalones deportivos');
+
+INSERT INTO categories (name, idSubcategory)
+VALUES ('Ropa deportiva', 1);|
+
+INSERT INTO brands (id, name, imageurl)
+VALUES (1, 'Nike', 'https://example.com/nike-logo.png');
+
+INSERT INTO PRODUCTS (
+  name,
+  description,
+  price,
+  stock,
+  weight,
+  sizes,
+  isActive,
+  categoryId,
+  brandId,
+  createdBy,
+  updatedBy
+)
+VALUES (
+  'Camiseta Dry-Fit',
+  'Camiseta deportiva de alto rendimiento con tecnología de absorción de sudor.',
+  95000,
+  30,
+  0.25,
+  'S,M,L,XL',
+  TRUE,
+  1,  -- ID categoría
+  1,  -- ID marca
+  1,  -- ID del usuario que crea
+  1   -- ID del usuario que actualiza
+);

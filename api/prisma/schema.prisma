@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -113,7 +112,7 @@ model orders {
   id            Int                       @id @default(autoincrement())
   status        orders_status_enum
   total         Int
-  paymentmethod orders_status_enum
+  paymentmethod orders_paymentmethod_enum
   paymentstatus Boolean
   transactionid String                    @db.VarChar(255)
   userid        Int
@@ -208,15 +207,27 @@ model users {
 }
 
 enum ORDERS_paymentMethod_enum {
+  ASDASDAS
+}
+
+enum ORDERS_status_enum {
+  faddsdf
+}
+
+enum ORDER_LOGS_previousStatus_enum {
+  HSDJSAHJDAS
+}
+
+enum orders_paymentmethod_enum {
   paypal
-  nequi 
+  nequi
   efecty
 }
 
 enum orders_status_enum {
-  Pending 
-  Paid 
-  Processing 
+  Pending
+  Paid
+  Processing
   Shipped
   Delivered
 }

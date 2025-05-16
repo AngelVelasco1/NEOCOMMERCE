@@ -110,21 +110,21 @@ model order_logs {
 }
 
 model orders {
-  id            Int                @id @default(autoincrement())
+  id            Int                       @id @default(autoincrement())
   status        orders_status_enum
   total         Int
-  paymentmethod orders_status_enum
+  paymentmethod orders_paymentmethod_enum
   paymentstatus Boolean
-  transactionid String             @db.VarChar(255)
+  transactionid String                    @db.VarChar(255)
   userid        Int
   couponid      Int?
-  createdat     DateTime           @default(now()) @db.Timestamp(6)
-  updatedat     DateTime?          @db.Timestamp(6)
+  createdat     DateTime                  @default(now()) @db.Timestamp(6)
+  updatedat     DateTime?                 @db.Timestamp(6)
   updatedby     Int
   order_items   order_items[]
   order_logs    order_logs[]
-  coupons       coupons?           @relation(fields: [couponid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users         users              @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  coupons       coupons?                  @relation(fields: [couponid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users         users                     @relation(fields: [userid], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model permissions {
@@ -208,6 +208,18 @@ model users {
 }
 
 enum ORDERS_paymentMethod_enum {
+  ASDASDAS
+}
+
+enum ORDERS_status_enum {
+  faddsdf
+}
+
+enum ORDER_LOGS_previousStatus_enum {
+  HSDJSAHJDAS
+}
+
+enum orders_paymentmethod_enum {
   paypal
   nequi
   efecty

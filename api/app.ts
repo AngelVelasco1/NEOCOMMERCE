@@ -1,5 +1,3 @@
-import { PrismaClient } from "@prisma/client";
-
 import express from 'express';
 import { initRoutes } from './routes/router.js';
 import { CONFIG } from './config/credentials.js';
@@ -19,7 +17,6 @@ app.use(express.json());
 app.use('/api', initRoutes());
 
 
-export const prisma = new PrismaClient();
 
 app.get('/', (req, res) => {
   res.send('API is running');

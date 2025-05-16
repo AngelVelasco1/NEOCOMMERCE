@@ -1,4 +1,5 @@
 -- Active: 1744051677740@@localhost@5432@nomina_adso
+
 CREATE DATABASE neocommerce;
 
 DO $$ BEGIN

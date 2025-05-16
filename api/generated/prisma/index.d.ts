@@ -109,12 +109,33 @@ export type users = $Result.DefaultSelection<Prisma.$usersPayload>
  */
 export namespace $Enums {
   export const ORDERS_paymentMethod_enum: {
+  ASDASDAS: 'ASDASDAS'
+};
+
+export type ORDERS_paymentMethod_enum = (typeof ORDERS_paymentMethod_enum)[keyof typeof ORDERS_paymentMethod_enum]
+
+
+export const ORDERS_status_enum: {
+  faddsdf: 'faddsdf'
+};
+
+export type ORDERS_status_enum = (typeof ORDERS_status_enum)[keyof typeof ORDERS_status_enum]
+
+
+export const ORDER_LOGS_previousStatus_enum: {
+  HSDJSAHJDAS: 'HSDJSAHJDAS'
+};
+
+export type ORDER_LOGS_previousStatus_enum = (typeof ORDER_LOGS_previousStatus_enum)[keyof typeof ORDER_LOGS_previousStatus_enum]
+
+
+export const orders_paymentmethod_enum: {
   paypal: 'paypal',
   nequi: 'nequi',
   efecty: 'efecty'
 };
 
-export type ORDERS_paymentMethod_enum = (typeof ORDERS_paymentMethod_enum)[keyof typeof ORDERS_paymentMethod_enum]
+export type orders_paymentmethod_enum = (typeof orders_paymentmethod_enum)[keyof typeof orders_paymentmethod_enum]
 
 
 export const orders_status_enum: {
@@ -132,6 +153,18 @@ export type orders_status_enum = (typeof orders_status_enum)[keyof typeof orders
 export type ORDERS_paymentMethod_enum = $Enums.ORDERS_paymentMethod_enum
 
 export const ORDERS_paymentMethod_enum: typeof $Enums.ORDERS_paymentMethod_enum
+
+export type ORDERS_status_enum = $Enums.ORDERS_status_enum
+
+export const ORDERS_status_enum: typeof $Enums.ORDERS_status_enum
+
+export type ORDER_LOGS_previousStatus_enum = $Enums.ORDER_LOGS_previousStatus_enum
+
+export const ORDER_LOGS_previousStatus_enum: typeof $Enums.ORDER_LOGS_previousStatus_enum
+
+export type orders_paymentmethod_enum = $Enums.orders_paymentmethod_enum
+
+export const orders_paymentmethod_enum: typeof $Enums.orders_paymentmethod_enum
 
 export type orders_status_enum = $Enums.orders_status_enum
 
@@ -499,7 +532,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.1
+   * Prisma Client JS version: 6.8.2
    * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
@@ -14066,7 +14099,7 @@ export namespace Prisma {
     id: number | null
     status: $Enums.orders_status_enum | null
     total: number | null
-    paymentmethod: $Enums.orders_status_enum | null
+    paymentmethod: $Enums.orders_paymentmethod_enum | null
     paymentstatus: boolean | null
     transactionid: string | null
     userid: number | null
@@ -14080,7 +14113,7 @@ export namespace Prisma {
     id: number | null
     status: $Enums.orders_status_enum | null
     total: number | null
-    paymentmethod: $Enums.orders_status_enum | null
+    paymentmethod: $Enums.orders_paymentmethod_enum | null
     paymentstatus: boolean | null
     transactionid: string | null
     userid: number | null
@@ -14255,7 +14288,7 @@ export namespace Prisma {
     id: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     userid: number
@@ -14378,7 +14411,7 @@ export namespace Prisma {
       id: number
       status: $Enums.orders_status_enum
       total: number
-      paymentmethod: $Enums.orders_status_enum
+      paymentmethod: $Enums.orders_paymentmethod_enum
       paymentstatus: boolean
       transactionid: string
       userid: number
@@ -14816,7 +14849,7 @@ export namespace Prisma {
     readonly id: FieldRef<"orders", 'Int'>
     readonly status: FieldRef<"orders", 'orders_status_enum'>
     readonly total: FieldRef<"orders", 'Int'>
-    readonly paymentmethod: FieldRef<"orders", 'orders_status_enum'>
+    readonly paymentmethod: FieldRef<"orders", 'orders_paymentmethod_enum'>
     readonly paymentstatus: FieldRef<"orders", 'Boolean'>
     readonly transactionid: FieldRef<"orders", 'String'>
     readonly userid: FieldRef<"orders", 'Int'>
@@ -23690,6 +23723,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'orders_paymentmethod_enum'
+   */
+  export type Enumorders_paymentmethod_enumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'orders_paymentmethod_enum'>
+    
+
+
+  /**
+   * Reference to a field of type 'orders_paymentmethod_enum[]'
+   */
+  export type ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'orders_paymentmethod_enum[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -24324,7 +24371,7 @@ export namespace Prisma {
     id?: IntFilter<"orders"> | number
     status?: Enumorders_status_enumFilter<"orders"> | $Enums.orders_status_enum
     total?: IntFilter<"orders"> | number
-    paymentmethod?: Enumorders_status_enumFilter<"orders"> | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFilter<"orders"> | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFilter<"orders"> | boolean
     transactionid?: StringFilter<"orders"> | string
     userid?: IntFilter<"orders"> | number
@@ -24363,7 +24410,7 @@ export namespace Prisma {
     NOT?: ordersWhereInput | ordersWhereInput[]
     status?: Enumorders_status_enumFilter<"orders"> | $Enums.orders_status_enum
     total?: IntFilter<"orders"> | number
-    paymentmethod?: Enumorders_status_enumFilter<"orders"> | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFilter<"orders"> | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFilter<"orders"> | boolean
     transactionid?: StringFilter<"orders"> | string
     userid?: IntFilter<"orders"> | number
@@ -24403,7 +24450,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"orders"> | number
     status?: Enumorders_status_enumWithAggregatesFilter<"orders"> | $Enums.orders_status_enum
     total?: IntWithAggregatesFilter<"orders"> | number
-    paymentmethod?: Enumorders_status_enumWithAggregatesFilter<"orders"> | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumWithAggregatesFilter<"orders"> | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolWithAggregatesFilter<"orders"> | boolean
     transactionid?: StringWithAggregatesFilter<"orders"> | string
     userid?: IntWithAggregatesFilter<"orders"> | number
@@ -25432,7 +25479,7 @@ export namespace Prisma {
   export type ordersCreateInput = {
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     createdat?: Date | string
@@ -25448,7 +25495,7 @@ export namespace Prisma {
     id?: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     userid: number
@@ -25463,7 +25510,7 @@ export namespace Prisma {
   export type ordersUpdateInput = {
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     createdat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25479,7 +25526,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     userid?: IntFieldUpdateOperationsInput | number
@@ -25495,7 +25542,7 @@ export namespace Prisma {
     id?: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     userid: number
@@ -25508,7 +25555,7 @@ export namespace Prisma {
   export type ordersUpdateManyMutationInput = {
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     createdat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25520,7 +25567,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     userid?: IntFieldUpdateOperationsInput | number
@@ -26655,6 +26702,13 @@ export namespace Prisma {
     _max?: NestedEnumorders_status_enumFilter<$PrismaModel>
   }
 
+  export type Enumorders_paymentmethod_enumFilter<$PrismaModel = never> = {
+    equals?: $Enums.orders_paymentmethod_enum | Enumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    in?: $Enums.orders_paymentmethod_enum[] | ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    notIn?: $Enums.orders_paymentmethod_enum[] | ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    not?: NestedEnumorders_paymentmethod_enumFilter<$PrismaModel> | $Enums.orders_paymentmethod_enum
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -26741,6 +26795,16 @@ export namespace Prisma {
     userid?: SortOrder
     couponid?: SortOrder
     updatedby?: SortOrder
+  }
+
+  export type Enumorders_paymentmethod_enumWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.orders_paymentmethod_enum | Enumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    in?: $Enums.orders_paymentmethod_enum[] | ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    notIn?: $Enums.orders_paymentmethod_enum[] | ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    not?: NestedEnumorders_paymentmethod_enumWithAggregatesFilter<$PrismaModel> | $Enums.orders_paymentmethod_enum
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumorders_paymentmethod_enumFilter<$PrismaModel>
+    _max?: NestedEnumorders_paymentmethod_enumFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -27556,6 +27620,10 @@ export namespace Prisma {
     connectOrCreate?: order_logsCreateOrConnectWithoutOrdersInput | order_logsCreateOrConnectWithoutOrdersInput[]
     createMany?: order_logsCreateManyOrdersInputEnvelope
     connect?: order_logsWhereUniqueInput | order_logsWhereUniqueInput[]
+  }
+
+  export type Enumorders_paymentmethod_enumFieldUpdateOperationsInput = {
+    set?: $Enums.orders_paymentmethod_enum
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -28541,9 +28609,26 @@ export namespace Prisma {
     _max?: NestedEnumorders_status_enumFilter<$PrismaModel>
   }
 
+  export type NestedEnumorders_paymentmethod_enumFilter<$PrismaModel = never> = {
+    equals?: $Enums.orders_paymentmethod_enum | Enumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    in?: $Enums.orders_paymentmethod_enum[] | ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    notIn?: $Enums.orders_paymentmethod_enum[] | ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    not?: NestedEnumorders_paymentmethod_enumFilter<$PrismaModel> | $Enums.orders_paymentmethod_enum
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumorders_paymentmethod_enumWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.orders_paymentmethod_enum | Enumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    in?: $Enums.orders_paymentmethod_enum[] | ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    notIn?: $Enums.orders_paymentmethod_enum[] | ListEnumorders_paymentmethod_enumFieldRefInput<$PrismaModel>
+    not?: NestedEnumorders_paymentmethod_enumWithAggregatesFilter<$PrismaModel> | $Enums.orders_paymentmethod_enum
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumorders_paymentmethod_enumFilter<$PrismaModel>
+    _max?: NestedEnumorders_paymentmethod_enumFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -29217,7 +29302,7 @@ export namespace Prisma {
   export type ordersCreateWithoutCouponsInput = {
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     createdat?: Date | string
@@ -29232,7 +29317,7 @@ export namespace Prisma {
     id?: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     userid: number
@@ -29276,7 +29361,7 @@ export namespace Prisma {
     id?: IntFilter<"orders"> | number
     status?: Enumorders_status_enumFilter<"orders"> | $Enums.orders_status_enum
     total?: IntFilter<"orders"> | number
-    paymentmethod?: Enumorders_status_enumFilter<"orders"> | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFilter<"orders"> | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFilter<"orders"> | boolean
     transactionid?: StringFilter<"orders"> | string
     userid?: IntFilter<"orders"> | number
@@ -29383,7 +29468,7 @@ export namespace Prisma {
   export type ordersCreateWithoutOrder_itemsInput = {
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     createdat?: Date | string
@@ -29398,7 +29483,7 @@ export namespace Prisma {
     id?: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     userid: number
@@ -29472,7 +29557,7 @@ export namespace Prisma {
   export type ordersUpdateWithoutOrder_itemsInput = {
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     createdat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29487,7 +29572,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     userid?: IntFieldUpdateOperationsInput | number
@@ -29551,7 +29636,7 @@ export namespace Prisma {
   export type ordersCreateWithoutOrder_logsInput = {
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     createdat?: Date | string
@@ -29566,7 +29651,7 @@ export namespace Prisma {
     id?: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     userid: number
@@ -29596,7 +29681,7 @@ export namespace Prisma {
   export type ordersUpdateWithoutOrder_logsInput = {
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     createdat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -29611,7 +29696,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     userid?: IntFieldUpdateOperationsInput | number
@@ -30649,7 +30734,7 @@ export namespace Prisma {
   export type ordersCreateWithoutUsersInput = {
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     createdat?: Date | string
@@ -30664,7 +30749,7 @@ export namespace Prisma {
     id?: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     couponid?: number | null
@@ -31030,7 +31115,7 @@ export namespace Prisma {
     id?: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     userid: number
@@ -31042,7 +31127,7 @@ export namespace Prisma {
   export type ordersUpdateWithoutCouponsInput = {
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     createdat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31057,7 +31142,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     userid?: IntFieldUpdateOperationsInput | number
@@ -31072,7 +31157,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     userid?: IntFieldUpdateOperationsInput | number
@@ -31426,7 +31511,7 @@ export namespace Prisma {
     id?: number
     status: $Enums.orders_status_enum
     total: number
-    paymentmethod: $Enums.orders_status_enum
+    paymentmethod: $Enums.orders_paymentmethod_enum
     paymentstatus: boolean
     transactionid: string
     couponid?: number | null
@@ -31497,7 +31582,7 @@ export namespace Prisma {
   export type ordersUpdateWithoutUsersInput = {
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     createdat?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -31512,7 +31597,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     couponid?: NullableIntFieldUpdateOperationsInput | number | null
@@ -31527,7 +31612,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     status?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
     total?: IntFieldUpdateOperationsInput | number
-    paymentmethod?: Enumorders_status_enumFieldUpdateOperationsInput | $Enums.orders_status_enum
+    paymentmethod?: Enumorders_paymentmethod_enumFieldUpdateOperationsInput | $Enums.orders_paymentmethod_enum
     paymentstatus?: BoolFieldUpdateOperationsInput | boolean
     transactionid?: StringFieldUpdateOperationsInput | string
     couponid?: NullableIntFieldUpdateOperationsInput | number | null
