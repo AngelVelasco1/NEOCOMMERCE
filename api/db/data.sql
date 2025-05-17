@@ -3,10 +3,15 @@ INSERT INTO USERS (name, email, emailVerified, password, phoneNumber, roleId) VA
 ('Maria Gomez', 'maria@example.com', FALSE, 'hashedpassword456', '3129876543', 2),
 ('Carlos Lopez', 'carlos@example.com', TRUE, 'hashedpassword789', '3156543210', 2);
 
+
+INSERT INTO IMAGES (imageurl, colorcode, color, productid) VALUES('https://th.bing.com/th/id/OIP.P9dxcum1kbgLaBdw2F_3EQHaE_?rs=1&pid=ImgDetMain', '#00A6CB', 'Blue', 1),
+('https://th.bing.com/th/id/OIP.P9dxcum1kbgLaBdw2F_3EQHaE_?rs=1&pid=ImgDetMain', '#FF0000', 'Red', 1),
+('https://th.bing.com/th/id/OIP.P9dxcum1kbgLaBdw2F_3EQHaE_?rs=1&pid=ImgDetMain', '#00FF00', 'Green', 2);
+
 INSERT INTO subcategory (name) VALUES ('pantalones deportivos');
 
 INSERT INTO categories (name, idSubcategory)
-VALUES ('Ropa deportiva', 1);|
+VALUES ('Ropa deportiva', 1);
 
 INSERT INTO brands (id, name, imageurl)
 VALUES (1, 'Nike', 'https://example.com/nike-logo.png');

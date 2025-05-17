@@ -1,16 +1,17 @@
 "use client";
 import { Banner } from "./components/Banner";
-import { ProductCard } from "./products/components/ProductCard";
+import { ProductCard } from "./(products)/components/ProductCard";
 
 import React, { useEffect, useState } from "react";
-import { getLatestProducts } from "./products/services/api";
-import { IProduct } from "./products/types";
+import { getLatestProducts } from "./(products)/services/api";
+import { IProduct } from "./(products)/types";
 import { redirect } from "next/navigation";
 import { Testimonials } from "./components/Testimonials";
 import { BenefitsList } from "./components/BenefitsList";
 
 export default function Home() {
   const [products, setProducts] = useState<IProduct[]>([]);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -44,7 +45,7 @@ export default function Home() {
         </div>
 
         <div className="mt-16 mb-4">
-          <BenefitsList />
+           <BenefitsList />
         </div>
 
         <div >

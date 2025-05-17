@@ -34,7 +34,7 @@ export const getProductsService = async (id?: number) => {
             categories: true 
         }
     });
-      return {...product}
+      return product
 };
 
 export const getLatestProductsService = async () => {
