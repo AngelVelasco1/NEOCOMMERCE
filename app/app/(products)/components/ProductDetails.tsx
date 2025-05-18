@@ -1,4 +1,6 @@
 "use client";
+
+import React from 'react';
 import Image from "next/image";
 import { Button } from "../../components/ui/button";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
@@ -6,19 +8,19 @@ import { useState } from "react";
 import { useCart } from "../../(cart)/hooks/useCart";
 import { PaymentIcon, paymentMethods } from "../../components/PaymentIcon";
 import { SetQuantity } from "../../components/SetQuantity";
-import React from 'react';
 import { IProductDetails } from '../types';
+import { Skeleton } from '@/app/components/ui/skeleton';
 
 export interface ProductDetailsProps {
   data: IProductDetails;
 }
 
 export const ProductDetails = ({ data }: ProductDetailsProps) => {
-  const { addProductToCart, cartProducts, updateQuantity } = useCart();
   const [quantity, setQuantity] = useState(1)
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState("");
-  const [selectedSize, setSelectedSize] = useState("small");  
+  const [selectedSize, setSelectedSize] = useState("");  
+  const { addProductToCart, cartProducts, updateQuantity } = useCart();
   
   const handleAddToCart = () => {
     const product = {
@@ -26,11 +28,11 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
       color: selectedColor,
       colorCode: data.images[selectedImage].colorCode,
       colorName: data.images[selectedImage].color,
-      imageURL: data.images[selectedImage].image,
+      imageUrl: data.images[selectedImage].imageurl,
       name: data.name,
       price: data.price,
       quantity: quantity,
-      size: selectedSize,
+      sizes: selectedSize,
       total: data.price * quantity,
     };
     addProductToCart(product);
@@ -53,7 +55,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
       setQuantity((prev) => Math.max(1, prev - 1)); 
     }
   };
-
+  
 
   const handleImageChange = (index: number, color: string) => {
     if (color === selectedColor) {
@@ -71,17 +73,20 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
     <div className="grid gap-10 md:grid-cols-2 space-y-4 p-4">
       <div className="flex flex-row-reverse">
         <div className="flex-1 relative aspect-square  rounded-lg bg-gray-100">
-          <Image
-            src={data.images[selectedImage]?.image || "https://th.bing.com/th/id/OIP.P9dxcum1kbgLaBdw2F_3EQHaE_?rs=1&pid=ImgDetMain"}
-            alt={data.images[selectedImage]?.color || ""}
+          {data.images[selectedImage]?.imageurl ?   <Image
+            src={data.images[selectedImage]?.imageurl}
+            alt={data.images[selectedImage]?.color}
             width={460}
             height={460}
             className="object-contain p-8 z-40"
             priority
-          />
+          /> : <Skeleton />
+          }
+        
         </div>
         <div className="grid grid-cols-1 w-1/5 h-fit gap-5 m-auto">
-          {(data.images && data.images.length > 0 ? data.images : [/* fallback image object if needed */]).map((image, index: number) => (
+          {         
+          data.images.map((image, index: number) => (
             <button
               key={index}
               onClick={() => handleImageChange(index, image.color)}
@@ -92,7 +97,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
               }`}
             >
               <Image
-                src={image.image || "https://th.bing.com/th/id/OIP.P9dxcum1kbgLaBdw2F_3EQHaE_?rs=1&pid=ImgDetMain"}
+                src={image.imageurl}
                 alt={`${data.name} thumbnail ${index + 1}`}
                 fill
                 className="object-contain"
@@ -146,7 +151,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
             onValueChange={setSelectedSize}
             className="flex flex-wrap gap-3"
           >
-            {["small", "medium", "large"].map((size) => (
+            {data.sizes.split(",").map((size) => (
               <label
                 key={size}
                 className={`flex cursor-pointer items-center justify-center rounded-md border px-3 py-2 text-sm

@@ -2,8 +2,8 @@
 import React from "react";
 import { useCart } from "../hooks/useCart";
 import Image from "next/image";
-import { SetQuantity } from "../../(products)/components/SetQuantity";
-import { Button } from "@/app/ui/button";
+import { SetQuantity } from "../../components/SetQuantity";
+import { Button } from "../../components/ui/button";
 import {
   Table,
   TableBody,
@@ -12,11 +12,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/app/ui/table";
+} from "../../components/ui/table";
 
 export default function CartProduct() {
   const { cartProducts, updateQuantity, removeProductCart } = useCart();
-  console.log(cartProducts);
   
   const getSubTotal = () => cartProducts.reduce((total, product) => total + product.quantity * product.price, 0);
   return (
@@ -48,7 +47,7 @@ export default function CartProduct() {
                 ></Image>
                 <div className="flex flex-col gap-4 ms-2">
                   <p>{product.name}</p>
-                  <p>{product.size}</p>
+                  <p>{product.sizes}</p>
                   <div
                     key={product.colorCode}
                     className="w-8 h-8 rounded-full ring-2 ring-blue-500"

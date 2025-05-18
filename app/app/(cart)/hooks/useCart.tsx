@@ -1,22 +1,7 @@
 "use client"
 import React from 'react';
 import {useContext, createContext, useState, useCallback, ReactNode} from 'react';
-export interface CartProductsInfo {
-    id: number;
-    color: string;
-    colorCode: string;
-    imageURL: string;
-    name: string;
-    price: number;
-    size: string;
-    quantity: number;
-}
-interface CartProductsContext {
-    cartProducts: CartProductsInfo[],
-    addProductToCart: (product: CartProductsInfo) => void,
-    updateQuantity: (id: number, color: string, quantity: number) => void,
-    removeProductCart: (id: number, color: string) => void;
-}
+import { CartProductsContext, CartProductsInfo } from '../types';
 
 const CartContext = createContext<CartProductsContext | undefined>(undefined) ;
 

@@ -9,14 +9,13 @@ export interface ProductCardProps {
     data: IProduct
 }
 
-export const ProductCard = ({ data }: ProductCardProps) => {
-  console.log("data", data)
+export const ProductCard = ({ data }: ProductCardProps) => {  
   return (
   <Link href={`/${data.id}`}>
       <div className="flex flex-col group relative transition-transform hover:scale-105 p-3 gap-4">
         <div className="relative aspect-square overflow-hidden w-full">
-          {data.imageURL ? <Image
-            src={data.imageURL}
+          {data.imageUrl ? <Image
+            src={data.imageUrl}
             alt="product"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

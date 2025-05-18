@@ -4,26 +4,25 @@ const prisma = new PrismaClient();
 
 export const getProductsService = async (id?: number) => {
     if (!id) {
-        // Obtener todos los productos con una imagen y categoría
         const products = await prisma.products.findMany({
             include: {
                 images: {
-                    take: 1 // Solo la primera imagen
+                    take: 1 
                 },
-                categories: true // Incluir la categoría
+                categories: true 
             }
         });
-        // Opcional: adaptar el formato para que coincida con tu frontend
         return products.map(p => ({
             id: p.id,
             name: p.name,
             description: p.description,
             price: p.price,
             stock: p.stock,
-            imageURL: p.images[0]?.imageurl ?? null,
-            colorCode: p.images[0]?.colorcode ?? null,
-            color: p.images[0]?.color ?? null,
-            category: p.categories?.name ?? null // Devuelve el nombre de la categoría
+            sizes: p.sizes,
+            imageUrl: p.images[0].imageurl,
+            colorCode: p.images[0]?.colorcode,
+            color: p.images[0]?.color,
+            category: p.categories?.name // Devuelve el nombre de la categoría
         }));
     }
     
@@ -53,8 +52,8 @@ export const getLatestProductsService = async () => {
             description: p.description,
             price: p.price,
             stock: p.stock,
-            imageURL: p.images[0]?.imageurl ?? null,
-            colorCode: p.images[0]?.colorcode ?? null,
-            color: p.images[0]?.color ?? null
+            imageUrl: p.images[0]?.imageurl,
+            colorCode: p.images[0]?.colorcode,
+            color: p.images[0]?.color
     }));
 };
