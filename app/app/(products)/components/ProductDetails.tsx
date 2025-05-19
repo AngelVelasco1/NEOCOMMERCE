@@ -174,7 +174,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
             onValueChange={setSelectedColor}
             className="flex gap-3"
           >
-            {(data.images || [])
+            {(data.images)
               .map((img) => img.color)
               .filter(
                 (value: string, index: number, self: Array<string>) =>

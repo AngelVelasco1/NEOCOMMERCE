@@ -39,7 +39,7 @@ export default function CartProduct() {
               <TableCell className="font-medium flex">
                 {" "}
                 <Image
-                  src={product.imageURL}
+                  src={product.imageUrl}
                   alt="product"
                   width={150}
                   height={150}

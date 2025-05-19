@@ -19,7 +19,7 @@ export const getProductsService = async (id?: number) => {
             price: p.price,
             stock: p.stock,
             sizes: p.sizes,
-            imageUrl: p.images[0].imageurl,
+            imageUrl: p.images[0]?.imageurl,
             colorCode: p.images[0]?.colorcode,
             color: p.images[0]?.color,
             category: p.categories?.name // Devuelve el nombre de la categoría

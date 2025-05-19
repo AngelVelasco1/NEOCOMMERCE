@@ -1,10 +1,9 @@
 import axios from "axios";
-import {FRONT_CONFIG} from '../../../config/credentials';
+import { FRONT_CONFIG } from '../../../config/credentials';
 
 export const api = axios.create({
   baseURL: `http://${FRONT_CONFIG.host}:${FRONT_CONFIG.port}`,
 });
-
 
 export const getProducts = async () => {
   const { data } = await api.get("/api/use/products");  
