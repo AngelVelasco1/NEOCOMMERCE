@@ -12,6 +12,7 @@ export const getProductsService = async (id?: number) => {
                 categories: true 
             }
         });
+
         return products.map(p => ({
             id: p.id,
             name: p.name,
@@ -22,7 +23,7 @@ export const getProductsService = async (id?: number) => {
             imageUrl: p.images[0]?.imageurl,
             colorCode: p.images[0]?.colorcode,
             color: p.images[0]?.color,
-            category: p.categories?.name // Devuelve el nombre de la categoría
+            category: p.categories?.name 
         }));
     }
     

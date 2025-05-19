@@ -17,7 +17,7 @@ import {
 export default function CartProduct() {
   const { cartProducts, updateQuantity, removeProductCart } = useCart();
   
-  const getSubTotal = () => cartProducts.reduce((total, product) => total + product.quantity * product.price, 0);
+  const getSubTotal = () => cartProducts.reduce((total, product) => total  + product.quantity * product.price, 0);
   return (
     <>
     <Table className="container m-auto">
