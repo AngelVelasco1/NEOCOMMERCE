@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import Image from "next/image";
 import { Button } from "../../components/ui/button";
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
@@ -20,41 +20,26 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");  
-  const { addProductToCart, cartProducts, updateQuantity } = useCart();
+  const { addProductToCart } = useCart();
   
-  const handleAddToCart = () => {
+  const handleAddToCart = useCallback(() => {
     const product = {
       id: data.id,
       color: selectedColor,
-      colorCode: data.images[selectedImage].colorCode,
+      colorCode: data.images[selectedImage].colorcode,
       colorName: data.images[selectedImage].color,
       imageUrl: data.images[selectedImage].imageurl,
       name: data.name,
       price: data.price,
       quantity: quantity,
-      sizes: selectedSize,
+      size: selectedSize,
       total: data.price * quantity,
     };
     addProductToCart(product);
-  };
+  }, [data, selectedImage, selectedColor, selectedSize, quantity]);
 
-  const cartProduct = cartProducts.find((product) => product.id === data.id);
 
-  const handleIncrease = () => {
-    if (cartProduct) {
-      updateQuantity(cartProduct.id, cartProduct.colorCode, cartProduct.quantity + 1);
-    } else {
-      setQuantity((prev) => Math.min(data.stock, prev + 1)); 
-    }
-  };
-  
-  const handleDecrease = () => {
-    if (cartProduct) {
-      updateQuantity(cartProduct.id, cartProduct.colorCode, Math.max(1, cartProduct.quantity - 1));
-    } else {
-      setQuantity((prev) => Math.max(1, prev - 1)); 
-    }
-  };
+
   
 
   const handleImageChange = (index: number, color: string) => {
@@ -63,7 +48,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
     } else {
       setSelectedColor(color);
       const firstImageIndex = data.images.findIndex(
-        (img) => img.color === color
+        (img) => img.colorcode === color
       );
       setSelectedImage(firstImageIndex !== -1 ? firstImageIndex : 0);
     }
@@ -144,7 +129,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
 
         <div className="space-y-4">
           <div className="flex justify-between">
-            <label className="text-base">Tamaño: {selectedSize}</label>
+            <label className="text-base">Tamaño:</label>
           </div>
           <RadioGroup
             defaultValue={selectedSize}
@@ -168,26 +153,28 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-base">Color: {selectedColor}</label>
+          <label className="text-base">Color: 
+          
+          </label>
           <RadioGroup
             defaultValue={selectedColor}
             onValueChange={setSelectedColor}
             className="flex gap-3"
           >
             {(data.images)
-              .map((img) => img.color)
+              .map((img) => img.colorcode)
               .filter(
                 (value: string, index: number, self: Array<string>) =>
                   value && self.indexOf(value) === index
               )
-              .map((color: string) => (
+              .map((colorCode: string) => (
                 <button
-                  key={color}
-                  onClick={() => handleImageChange(0, color)}
-                  className={`w-8 h-8 rounded-full ${
-                    selectedColor === color ? "ring-2 ring-blue-500" : "ring-2 ring-slate-500"
-                  }`}
-                  style={{ backgroundColor: color }}
+                  key={colorCode}
+                  onClick={() => handleImageChange(0, colorCode)}
+                  
+                  className={`w-8 h-8 rounded-full
+                    ${selectedColor === colorCode ? "ring-2 ring-black" : "ring-2 ring-slate-500"}`}
+                  style={{ backgroundColor: colorCode }}
                 />
               ))}
           </RadioGroup>
@@ -195,14 +182,14 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
 
         <div className="flex items-end gap-5">
           <SetQuantity
-            cartProduct={cartProduct || {quantity}}
-            handleDecrease={() => handleDecrease()}
-            handleIncrease={() => handleIncrease()}
+            cartProduct={{quantity}}
+            handleDecrease={() => setQuantity((prev) => Math.max(1, prev - 1))}
+            handleIncrease={() => setQuantity((prev) => Math.min(data.stock, prev + 1))}
           />
           <div className="w-10/12">
             <Button
               onClick={() => handleAddToCart()}
-              className="w-10/12 p-6 border-2 border-black"
+              className={`w-10/12 p-6 transition-transform hover:bg-emerald-200`}
               size="lg"
               variant="outline"
             >

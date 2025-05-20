@@ -48,11 +48,11 @@ export const Navbar = () => {
         <div  className="flex items-center">
         <Input
             type="text"
-            className="px-3"
+            className="px-3 rounded-s-lg rounded-e-none border-gray-300 focus:border-gray-500 focus:ring-gray-500"
           />
           <button
             style={{ backgroundColor: colors.primary }}
-            className="px-3 py-[8px] text-white rounded-e-lg text-center"
+            className="px-3 py-[6px] text-white rounded-e-lg text-center"
           >
             Buscar
           </button>

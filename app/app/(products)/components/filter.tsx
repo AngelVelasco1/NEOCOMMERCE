@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useCallback } from "react";
-import { IProduct } from "../types";
+import {  IProduct } from "../types";
 import { Button } from "../../components/ui/button";
 import { PriceSelector } from "./PriceSelector";
 
@@ -17,7 +17,7 @@ export const Filter = ({ products, setFilteredProducts }: FilterProps) => {
   const handleColorFilter = (color: string | null) => {
     setSelectedColor(color);
     if (color && selectedCategory !== null) {
-      setFilteredProducts(products.filter((product) => product.colorCode === color && product.category === selectedCategory))
+      setFilteredProducts(products.filter((product) => product.color === color && product.category === selectedCategory))
 
     } else if(color) {
       setFilteredProducts(products.filter((product) => product.colorCode === color))
@@ -61,17 +61,17 @@ export const Filter = ({ products, setFilteredProducts }: FilterProps) => {
       </div>
     <h3>Colors</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-y-3 ">
-        {Colors.map((color) => {
+        {Colors.map((colorCode) => {
             return (
               <button
-                onClick={() => handleColorFilter(color)}
+                onClick={() => handleColorFilter(colorCode)}
                 className={
-                  selectedColor === color
+                  selectedColor === colorCode
                     ? "w-9 h-9 rounded-md transition-transform transform hover:scale-95  outline-none ring-2 ring-offset-2 ring-blue-500"
                     : "w-9 h-9 rounded-md transition-transform transform hover:scale-105 "
                 }
-                key={color}
-                style={{ backgroundColor: color }}
+                key={colorCode}
+                style={{ backgroundColor: colorCode }}
               ></button>
             );
         })}

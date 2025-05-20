@@ -1,5 +1,5 @@
 "use client ";
-import React from "react";
+import React, { useEffect } from "react";
 import { useCart } from "../hooks/useCart";
 import Image from "next/image";
 import { SetQuantity } from "../../components/SetQuantity";
@@ -16,8 +16,15 @@ import {
 
 export default function CartProduct() {
   const { cartProducts, updateQuantity, removeProductCart } = useCart();
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartProducts));
+     setTimeout(() => {
+            localStorage.removeItem("cart");
+        }, 21600000)
+  }, [cartProducts]);
   
-  const getSubTotal = () => cartProducts.reduce((total, product) => total  + product.quantity * product.price, 0);
+  const getSubTotal = () => cartProducts.reduce((total, product) => total + product.quantity * product.price, 0);
   return (
     <>
     <Table className="container m-auto">
@@ -34,7 +41,7 @@ export default function CartProduct() {
           {cartProducts.map((product) => (
             <TableRow
               className=""
-              key={`${product.id}-${product.colorCode}`}
+              key={`${product.id}-${product.colorCode}-${product.size}`}
             >
               <TableCell className="font-medium flex">
                 {" "}
@@ -47,7 +54,7 @@ export default function CartProduct() {
                 ></Image>
                 <div className="flex flex-col gap-4 ms-2">
                   <p>{product.name}</p>
-                  <p>{product.sizes}</p>
+                  <p>{product.size}</p>
                   <div
                     key={product.colorCode}
                     className="w-8 h-8 rounded-full ring-2 ring-blue-500"
@@ -57,7 +64,7 @@ export default function CartProduct() {
                   <Button
                   variant={"outline"}
                 onClick={() =>
-                  removeProductCart(product.id, product.colorCode)
+                  removeProductCart(product.id, product.colorCode, product.size)
                 }
               >
                 Remove
@@ -68,20 +75,22 @@ export default function CartProduct() {
               <TableCell>
                 {" "}
                 <SetQuantity
-                  key={product.id}
+                  key={`${product.id}-${product.colorCode}`}
                   cartProduct={product}
                   handleDecrease={() =>
                     updateQuantity(
                       product.id,
                       product.colorCode,
-                      Math.max(1, product.quantity - 1)
+                      Math.max(1, product.quantity - 1),
+                      product.size
                     )
                   }
                   handleIncrease={() =>
                     updateQuantity(
                       product.id,
                       product.colorCode,
-                      product.quantity + 1
+                      product.quantity + 1,
+                      product.size
                     )
                   }
                 />

@@ -1,6 +1,6 @@
 export interface IProductImage {
   color: string;
-  colorCode: string;
+  colorcode: string;
   imageurl: string;
 }
 
@@ -11,6 +11,8 @@ export interface IProduct {
   stock: number;
   category: string;
   imageUrl: string;
+  color: string;
+  colorCode: string;
 }
 
 export interface IProductDetails {
@@ -22,6 +24,8 @@ export interface IProductDetails {
     quantity: number;
     sizes: string;
     stock: number;
+    category: string;
+
 }
 
 
