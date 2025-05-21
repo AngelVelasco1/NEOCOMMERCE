@@ -28,7 +28,7 @@ export const Navbar = () => {
           style={{ color: colors.primary }}
           className="text-xl font-bold uppercase"
         >
-          Sensual Candles
+          NEOCOMMERCE
         </div>
       </div>
       <div className="text-lg hidden md:flex space-x-10">
@@ -63,9 +63,9 @@ export const Navbar = () => {
         <Link href={"/productsCart"} className="text-gray-700 hover:text-gray-900">
           <TbShoppingBag size="1.7em" />
         </Link>
-        <button className="text-gray-700 hover:text-gray-900">
+         <Link href={"/login"} className="text-gray-700 hover:text-gray-900">
           <LuUserRound size="1.7em" />
-        </button>
+        </Link>
       </div>
     </nav>
   );
