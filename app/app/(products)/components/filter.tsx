@@ -57,9 +57,9 @@ export const Filter = ({ products, setFilteredProducts }: FilterProps) => {
   return (
     <div className="flex flex-col px-16 gap-y-4 ms-6">
       <div>
-        <Button onClick={() => clearFilters()}>Clear Filters</Button>
+        <Button onClick={() => clearFilters()}>Borrar filtros</Button>
       </div>
-    <h3>Colors</h3>
+    <h3>Colores</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-y-3 ">
         {Colors.map((colorCode) => {
             return (
@@ -76,7 +76,7 @@ export const Filter = ({ products, setFilteredProducts }: FilterProps) => {
             );
         })}
       </div>
-      <h3>Categories</h3>
+      <h3>Categorías</h3>
 
       <div className="flex flex-col gap-y-3">
       {Categories.map((category) => {
@@ -85,7 +85,7 @@ export const Filter = ({ products, setFilteredProducts }: FilterProps) => {
             );
         })}
       </div>
-      <h3>Price</h3>
+      <h3>Precio</h3>
 
       <div className="flex flex-col gap-y-2">
         <PriceSelector 

@@ -104,7 +104,7 @@ export const ProductDetails = ({ data }: ProductDetailsProps) => {
               <span className="text-3xl font-bold">${data.price}</span>
             </div>
             <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-sm font-semibold text-red-700">
-              SAVE {10}%
+              Ahorra {10}%
             </span>
           </div>
         </div>
