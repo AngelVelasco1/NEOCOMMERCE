@@ -1,14 +1,9 @@
-/***********************************/
-/*Función para Insertar Usuarios*/
-/**********************************/
-
-CREATE OR REPLACE PROCEDURE insert_users(u_name TEXT, u_email TEXT, u_emailverified BOOLEAN, u_password TEXT, u_phonenumber TEXT, u_roleid INT)
-
+CREATE OR REPLACE PROCEDURE createUser(p_name TEXT, p_email TEXT, p_emailverified BOOLEAN, p_password TEXT, p_phonenumber TEXT, p_roleid INT)
     LANGUAGE plpgsql
     AS $$
     BEGIN
         INSERT INTO users (name, email, emailverified, password, phonenumber, roleid) 
-        VALUES (u_name, u_email, u_emailverified, u_password, u_phonenumber, u_roleid);
+        VALUES (p_name, p_email, p_emailverified, p_password, p_phonenumber, p_roleid);
     END;
     $$;
 
@@ -16,13 +11,11 @@ CREATE OR REPLACE PROCEDURE insert_users(u_name TEXT, u_email TEXT, u_emailverif
 /*************************************/
 /*Función para Eliminar Usuarios*/
 /************************************/
-
-CREATE OR REPLACE PROCEDURE delete_users(u_id INT)
-
+CREATE OR REPLACE PROCEDURE deleteUser(p_id INT)
     LANGUAGE plpgsql
     AS $$
     BEGIN
-        DELETE FROM users WHERE id = u_id;
+        DELETE FROM users WHERE id = p_id;
     END;
 $$;
 
@@ -30,14 +23,11 @@ $$;
 /*************************************/
 /*Función para Actualizar Usuarios*/
 /************************************/
-
-    CREATE OR REPLACE PROCEDURE update_users(u_name TEXT, u_email TEXT, u_emailverified BOOLEAN, u_password TEXT, u_phonenumber TEXT, u_roleid INT, u_createdat INT)
-
+CREATE OR REPLACE PROCEDURE updateUser(p_name TEXT, p_email TEXT, p_emailverified BOOLEAN, p_password TEXT, p_phonenumber TEXT, p_roleid INT, p_createdat INT)
     LANGUAGE plpgsql
     AS $$
     BEGIN
-        UPDATE users SET
-                                    name = u_name, email = u_email, emailverified = u_emailverified, password = u_password, phonenumber = u_phonenumber, roleid = u_roleid, createdat = u_createdat
-        WHERE id = u_id;
+        UPDATE users SET name = p_name, email = p_email, emailverified = p_emailverified, password = p_password, phonenumber = p_phonenumber, roleid = p_roleid, createdat = p_createdat
+        WHERE id = p_id;
     END;
     $$;

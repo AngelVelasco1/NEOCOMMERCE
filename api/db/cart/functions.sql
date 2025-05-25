@@ -12,26 +12,20 @@ CREATE PROCEDURE addProductToCart(p_userId INT, p_productId INT, p_quantity INT)
     END;
     $$;
 
-/*********************************************/
-/*Función para eliminar productos del carrito*/
-/*********************************************/
 
-CREATE OR REPLACE PROCEDURE delete_ProductToCart(p_userId INT, p_productId INT)
+CREATE OR REPLACE PROCEDURE deleteProductToCart(p_userId INT, p_productId INT)
 
     LANGUAGE plpgsql
     AS $$
     BEGIN
         DELETE FROM cart_items WHERE productId = p_productId
         AND cartId = (SELECT id FROM cart WHERE userId = p_userId);
+
     END;
     $$;
 
-/***********************************************/
-/*Función para actualizar productos del carrito*/
-/***********************************************/
 
-CREATE PROCEDURE update_ProductToCart(p_userId INT, p_productId INT, p_quantity INT) 
-
+CREATE PROCEDURE updateProductToCart(p_userId INT, p_productId INT, p_quantity INT) 
    LANGUAGE plpgsql
     AS $$
     BEGIN
@@ -41,3 +35,4 @@ CREATE PROCEDURE update_ProductToCart(p_userId INT, p_productId INT, p_quantity 
         AND cartId = (SELECT id FROM cart WHERE userId = p_userId);
     END;
     $$;
+
